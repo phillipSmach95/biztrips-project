@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
 import Footer from "./Footer";
 import Header from "./Header";
-import { getProducts } from "./services/productService";
+import { Route, Routes } from "react-router-dom";
+import Empoyees from "./Employees";
+import Meetings from "./Meetings";
+import Trips from "./Trips";
+import TripForm from "./TripForm";
+import MeetingForm from "./MeetingForm";
 
 // const trips = [
 //   {
@@ -60,53 +65,24 @@ import { getProducts } from "./services/productService";
 // ];
 
 export default function App() {
-  const [trips, setTrips] = useState([]);
-  useEffect(() => {
-    getProducts("trips").then((res) => {
-      setTrips(res);
-    });
-  }, []);
-  function renderTrip(t) {
-    return (
-      <div className="product" key={t.id}>
-        <figure>
-          <div>
-            <img src={"images/items/" + t.id + ".jpg"} alt="name " />
-          </div>
-          <figcaption>
-            <a href="#. . . ">{t.title}</a>
-            <div>
-              <span>
-                {t.startTrip[2] + "-" + t.startTrip[1] + "-" + t.startTrip[0]}
-              </span>
-            </div>
-            <p>{t.description}</p>
-            <div>
-              <button type="button" disabled>
-                Add to Triplist
-              </button>
-            </div>
-          </figcaption>
-        </figure>
-      </div>
-    );
-  }
-
   return (
     <>
       <div>
         <Header />
         <main>
-          <section id="filters">
-            <label htmlFor="month">Filter by Month:</label>{" "}
-            <select id="size">
-              <option value="">All months</option>
-              <option value="1">January</option>
-              <option value="2">February</option>
-              <option value="3">March</option>
-            </select>
+          <main></main>
+
+          <section id="products">
+            <Routes>
+              <Route path="/" element={<Trips />} />
+              <Route path="/trips" element={<Trips />} />
+              <Route path="/employees" element={<Empoyees />} />
+              <Route path="/meetings" element={<Meetings />} />
+              <Route path="/tripform" element={<TripForm />} />
+              <Route path="/meetingform" element={<MeetingForm />} />
+              <Route path="/employeeform" element={<TripForm />} />
+            </Routes>
           </section>
-          <section id="products">{trips.map(renderTrip)}</section>
         </main>
       </div>
       <Footer />

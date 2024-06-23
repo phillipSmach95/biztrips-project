@@ -11,13 +11,13 @@ export default function Header() {
             <img width="150px" alt="Business Trips" src="/images/logo.png" />
             </NavLink>
               <li>
-              <NavLink to={"/meetings"}>Trips</NavLink>
+              <NavLink to={"/trips"}>Trips</NavLink>
               </li>
               <li>
               <NavLink to={"/meetings"}>Meetings</NavLink>
               </li>
               <li>
-              <NavLink to={"/empoyees"}>Empoyees</NavLink>
+              <NavLink to={"/employees"}>Empoyees</NavLink>
               </li>
           </li>
         </ul>

@@ -23,9 +23,16 @@ body {
   padding: 20px;
 }
 
+
 header {
   display: flex;
-  padding-left: 20px;
+  flex-direction: row;
+  background-color: #f8efef;
+  border: brown solid 2px ;
+  border-bottom: brown solid 2px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 20px;
 }
 
 header img {
@@ -51,7 +58,8 @@ header ul {
 
 header li {
   display: inline;
-  margin-right: 20px;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  margin: 30px;
 }
 
 #detail img {
