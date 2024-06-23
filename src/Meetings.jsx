@@ -13,8 +13,9 @@ export default function Meetings(){
     function renderMeetings(m) {
         
         return(<>
-        <label htmlFor="meetingtitle">Meeting title</label>
-        <input type="text" name="meetingtitle" id="meetingtitle" value={m.title}/>
+        
+        <h4>Meeting {m.title}</h4>
+        <p>{m.description}</p>
         <div>
                 <Link to="/meetingform">
                   edit meeting
