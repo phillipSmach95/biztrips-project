@@ -28,12 +28,14 @@
         {
           "id": 1,
           "title": "One Conference",
-          "description": "Key Note on One Conference"
+          "description": "Key Note on One Conference",
+          "tripId":1
         },
         {
           "id": 2,
           "title": "Zero Conference",
-          "description": "Workshop Zero on One Conference"
+          "description": "Workshop Zero on One Conference",
+          "tripId":1
         }
       ]
     },
@@ -66,12 +68,14 @@
         {
           "id": 3,
           "title": "One Conference",
-          "description": "HandsOn on One Conference"
+          "description": "HandsOn on One Conference",
+          "tripId":2
         },
         {
           "id": 4,
           "title": "One Conference",
-          "description": "Key Note on One Conference"
+          "description": "Key Note on One Conference",
+          "tripId":2
         }
       ]
     },
@@ -105,7 +109,8 @@
         {
           "id": 5,
           "title": "One Conference",
-          "description": "Key Note on One Conference"
+          "description": "Key Note on One Conference",
+          "tripId":3
         }
       ]
     }

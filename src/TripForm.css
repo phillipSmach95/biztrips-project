@@ -1,0 +1,41 @@
+label+textarea{
+    display: flex;
+    background-color: aqua;
+    justify-self: center;
+}
+input{
+    font: 1em sans-serif;
+    padding: 6px;
+}
+
+form {
+    display: grid;
+    flex-direction: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* font: 20px sans-serif; */
+    background-color: blueviolet;
+    padding: 1rem;
+    
+}
+.content {
+    
+    background: wheat;
+    
+ 
+}
+.checkbox-div{
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+}
+
+input[type=checkbox]{
+    display: inline;
+}
+
+label+input {
+    display: flex;
+    justify-self: center;
+    background-color: aqua;
+    
+}
