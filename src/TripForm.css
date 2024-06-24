@@ -1,7 +1,13 @@
+label{
+    font-size: large;
+}
+textarea {
+    width: max-content;
+}
 label+textarea{
     display: flex;
-    background-color: aqua;
     justify-self: center;
+    background-color: lightgray;
 }
 input{
     font: 1em sans-serif;
@@ -10,32 +16,28 @@ input{
 
 form {
     display: grid;
-    flex-direction: row;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: start  ;
     /* font: 20px sans-serif; */
-    background-color: blueviolet;
-    padding: 1rem;
-    
-}
-.content {
-    
-    background: wheat;
-    
- 
+    padding: 20px;
+    width: 100vh;
+
 }
 .checkbox-div{
     display: flex;
     flex-direction: column;
-    background-color: aqua;
 }
 
 input[type=checkbox]{
     display: inline;
+    margin-right: 20px;
+    height: fit-content;
 }
 
 label+input {
     display: flex;
     justify-self: center;
-    background-color: aqua;
+    background-color: lightgray;
+    
     
 }

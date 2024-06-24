@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./TripForm.css";
+import "./App.css";
 
 export default function TripForm() {
   return (
@@ -8,7 +9,8 @@ export default function TripForm() {
         <h1>Trip Modus</h1>
 
       <form action="" method="post">
-        <div>
+         <div>
+
           <label htmlFor="title">Title</label>
           <input type="text" name="title" id="title" />
           <label htmlFor="description">Description</label>
@@ -17,7 +19,8 @@ export default function TripForm() {
           <input type="date" name="startTrip" id="startTrip" />
           <label htmlFor="endTrip">End of trip</label>
           <input type="date" name="endTrip" id="endTrip" />
-        </div>
+         </div>
+        
         <div className="checkbox-div">
           <label htmlFor="employee1">
             <input type="checkbox" name="employee1" id="employee1" />

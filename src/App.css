@@ -19,9 +19,12 @@ body {
 }
 
 .content {
-  flex: 1 0 auto;
-  padding: 150px;
-  background-color: #364147;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  padding-left: 100px;
+  padding-right: 100px;
+  
 }
 
 
@@ -77,6 +80,7 @@ header li {
 #products {
   display: flex;
   justify-content: center;
+  
 }
 
 .product {

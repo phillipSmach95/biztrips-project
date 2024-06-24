@@ -70,7 +70,6 @@ export default function App() {
       <div>
         <Header />
         <main>
-          <main></main>
 
           <section id="products">
             <Routes>
