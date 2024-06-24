@@ -8,6 +8,7 @@ import Meetings from "./Meetings";
 import Trips from "./Trips";
 import TripForm from "./TripForm";
 import MeetingForm from "./MeetingForm";
+import EmployeeForm from "./EmployeeForm";
 
 // const trips = [
 //   {
@@ -79,7 +80,7 @@ export default function App() {
               <Route path="/meetings" element={<Meetings />} />
               <Route path="/tripform" element={<TripForm />} />
               <Route path="/meetingform" element={<MeetingForm />} />
-              <Route path="/employeeform" element={<TripForm />} />
+              <Route path="/employeeform" element={<EmployeeForm />} />
             </Routes>
           </section>
         </main>
