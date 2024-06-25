@@ -5,7 +5,6 @@ export default function EmployeeForm(){
     return(
         <>
         <div>
-
         <h1>Employee Data</h1>
 
     <form action="" method="post">
