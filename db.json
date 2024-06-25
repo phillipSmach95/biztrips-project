@@ -25,18 +25,8 @@
         7
       ],
       "meetings": [
-        {
-          "id": 1,
-          "title": "One Conference",
-          "description": "Key Note on One Conference",
-          "tripId":1
-        },
-        {
-          "id": 2,
-          "title": "Zero Conference",
-          "description": "Workshop Zero on One Conference",
-          "tripId":1
-        }
+        1,
+        2
       ]
     },
     {
@@ -65,18 +55,8 @@
         7
       ],
       "meetings": [
-        {
-          "id": 3,
-          "title": "One Conference",
-          "description": "HandsOn on One Conference",
-          "tripId":2
-        },
-        {
-          "id": 4,
-          "title": "One Conference",
-          "description": "Key Note on One Conference",
-          "tripId":2
-        }
+        2,
+        3
       ]
     },
     {
@@ -106,13 +86,40 @@
         8
       ],
       "meetings": [
-        {
-          "id": 5,
-          "title": "One Conference",
-          "description": "Key Note on One Conference",
-          "tripId":3
-        }
+        5
       ]
+    }
+  ],
+  "meetings": [
+    {
+      "id": 1,
+      "title": "One Conference",
+      "description": "Key Note on One Conference",
+      "tripId": 1
+    },
+    {
+      "id": 2,
+      "title": "Zero Conference",
+      "description": "Workshop Zero on One Conference",
+      "tripId": 1
+    },
+    {
+      "id": 3,
+      "title": "One Conference",
+      "description": "HandsOn on One Conference",
+      "tripId": 2
+    },
+    {
+      "id": 4,
+      "title": "One Conference",
+      "description": "Key Note on One Conference",
+      "tripId": 2
+    },
+    {
+      "id": 5,
+      "title": "One Conference",
+      "description": "Key Note on One Conference",
+      "tripId": 3
     }
   ],
   "employees": [
