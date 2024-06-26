@@ -1,7 +1,14 @@
+import { useParams } from "react-router-dom";
 import "./App" 
 import "./TripForm.css"
-
+import { useEffect, useState } from "react";
+import { getProduct } from "./services/productService";
 export default function MeetingForm() {
+  const [meeting, setMeeting] = useState({})
+  let { id } = useParams;
+  useEffect(()=>{
+        getProduct(id).then(setMeeting)
+  },[id])
   return (
     <>
       <h1>Meeting Data</h1>
@@ -21,6 +28,7 @@ export default function MeetingForm() {
             paricipants
           </label>
         </div>
+        <button type="submit">Save</button>
       </form>
     </>
   );

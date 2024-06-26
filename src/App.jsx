@@ -78,8 +78,8 @@ export default function App() {
               <Route path="/trips" element={<Trips />} />
               <Route path="/employees" element={<Empoyees />} />
               <Route path="/meetings" element={<Meetings />} />
-              <Route path="/tripform" element={<TripForm />} />
-              <Route path="/meetingform" element={<MeetingForm />} />
+              <Route path="/tripform/:id" children={<TripForm />} />
+              <Route path="/meetingform/:id" children={<MeetingForm />} />
               <Route path="/employeeform" element={<EmployeeForm />} />
             </Routes>
           </section>
