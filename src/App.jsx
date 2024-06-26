@@ -1,4 +1,3 @@
-
 import "./App.css";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -66,20 +65,22 @@ import EmployeeForm from "./EmployeeForm";
 // ];
 
 export default function App() {
+  
   return (
     <>
       <div>
         <Header />
         <main>
-
           <section id="products">
             <Routes>
+             
               <Route path="/" element={<Trips />} />
-              <Route path="/trips" element={<Trips />} />
+              <Route path="/trips" element={<Trips />}/>
+                <Route path="/tripform/:tripId" element={<TripForm />} />
+            
               <Route path="/employees" element={<Empoyees />} />
               <Route path="/meetings" element={<Meetings />} />
-              <Route path="/trips/:id" element={<TripForm />} />
-              <Route path="/meetingform/:id" element={<MeetingForm />} />
+              <Route path="/meetings/meetingform/:id" element={<MeetingForm />} />
               <Route path="/employeeform" element={<EmployeeForm />} />
             </Routes>
           </section>

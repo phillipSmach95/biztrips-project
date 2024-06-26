@@ -6,8 +6,8 @@ export async function getProducts(category) {
   throw response;
 }
 
-export async function getProduct(id) {
-  const response = await fetch(baseUrl + `products/${id}` );
+export async function getProduct(category,id) {
+  const response = await fetch(baseUrl + "products/"+category+"/"+id );
   if (response.ok) return response.json();
   throw response;
 }

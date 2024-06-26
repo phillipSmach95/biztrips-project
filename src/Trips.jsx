@@ -17,7 +17,7 @@ export default function Trips(){
               <img src={"images/items/" + t.id + ".jpg"} alt="name " />
             </div>
             <figcaption>
-              <a href="#. . . ">{t.title}</a>
+              <h1>{t.title} {t.id}</h1>
               <div>
                 <span>
                   {t.startTrip[2] + "-" + t.startTrip[1] + "-" + t.startTrip[0]}
@@ -25,7 +25,7 @@ export default function Trips(){
               </div>
               <p>{t.description}</p>
               <div>
-                <Link to="/tripform">
+                <Link to={"/tripform/"+t.id}>
                   Add to Triplist
                 </Link>
               </div>

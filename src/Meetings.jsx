@@ -22,7 +22,7 @@ export default function Meetings() {
             <h4>Meeting {m.title}</h4>
             <p>{m.description}</p>
             <div>
-              <Link to="/meetingform">edit meeting</Link>
+              <Link to={`meetings/meetingform/${m.id}`}>edit meeting</Link>
             </div>
           </div>
         </div>

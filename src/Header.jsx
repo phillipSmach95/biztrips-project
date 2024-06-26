@@ -6,11 +6,8 @@ export default function Header() {
     <header>
       <nav>
         <ul>
+          <li><NavLink to={"/"}><img width="150px" alt="Business Trips" src="/images/logo.png" /></NavLink></li>
           <li>
-            <NavLink to={"/"}>
-            <img width="150px" alt="Business Trips" src="/images/logo.png" />
-            </NavLink>
-              <li>
               <NavLink to={"/trips"}>Trips</NavLink>
               </li>
               <li>
@@ -19,7 +16,6 @@ export default function Header() {
               <li>
               <NavLink to={"/employees"}>Empoyees</NavLink>
               </li>
-          </li>
         </ul>
       </nav>
     </header>

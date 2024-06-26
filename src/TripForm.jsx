@@ -1,7 +1,14 @@
 import "./TripForm.css";
 import "./App.css";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getProduct } from "./services/productService";
 
 export default function TripForm() {
+  const [trips, setTrips] = useState([])
+  const [trip, setTrip] = useState()
+  const {tripId}= useParams()
+console.log(tripId);
   return (
     <>
     <div className="content">
@@ -10,8 +17,8 @@ export default function TripForm() {
       <form action="" method="post">
          <div>
 
-          <label htmlFor="title">Title</label>
-          <input type="text" name="title" id="title" />
+          <label htmlFor="title">Title </label>
+          <input type="text" name="title" id="title"  />
           <label htmlFor="description">Description</label>
           <textarea rows={3} name="description" id="description" />
           <label htmlFor="startTrip">Start of Trip</label>
