@@ -1,4 +1,4 @@
-import React from "react";
+
 import "./App.css";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -78,8 +78,8 @@ export default function App() {
               <Route path="/trips" element={<Trips />} />
               <Route path="/employees" element={<Empoyees />} />
               <Route path="/meetings" element={<Meetings />} />
-              <Route path="/tripform/:id" children={<TripForm />} />
-              <Route path="/meetingform/:id" children={<MeetingForm />} />
+              <Route path="/trips/:id" element={<TripForm />} />
+              <Route path="/meetingform/:id" element={<MeetingForm />} />
               <Route path="/employeeform" element={<EmployeeForm />} />
             </Routes>
           </section>
