@@ -4,10 +4,10 @@ import "./TripForm.css"
 import { useEffect, useState } from "react";
 import { getProduct } from "./services/productService";
 export default function MeetingForm() {
-  const [meeting, setMeeting] = useState({})
+  const [meeting, setMeeting] = useState()
   let { id } = useParams;
   useEffect(()=>{
-        getProduct(id).then(setMeeting)
+        getProduct(id).then((res)=>setMeeting(res))
   },[id])
   return (
     <>
@@ -18,7 +18,7 @@ export default function MeetingForm() {
           <option value="some Trip">some Trip</option>
           <option value="some other Trip">some otherTrip</option>
         </select>
-        <label htmlFor="">title</label>
+        <label htmlFor="">{meeting}</label>
         <input type="text" name="" id="" />
         <label htmlFor="">description</label>
         <input type="text" name="" id="" />
