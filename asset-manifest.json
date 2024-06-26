@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/biztrips-project/static/css/main.1547afbe.css",
-    "main.js": "/biztrips-project/static/js/main.0c288176.js",
+    "main.js": "/biztrips-project/static/js/main.ae638777.js",
     "index.html": "/biztrips-project/index.html",
     "main.1547afbe.css.map": "/biztrips-project/static/css/main.1547afbe.css.map",
-    "main.0c288176.js.map": "/biztrips-project/static/js/main.0c288176.js.map"
+    "main.ae638777.js.map": "/biztrips-project/static/js/main.ae638777.js.map"
   },
   "entrypoints": [
     "static/css/main.1547afbe.css",
-    "static/js/main.0c288176.js"
+    "static/js/main.ae638777.js"
   ]
 }
