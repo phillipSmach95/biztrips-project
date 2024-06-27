@@ -7,22 +7,22 @@ export async function getProducts(category) {
 }
 
 export async function getProduct(category,id) {
-  const response = await fetch(baseUrl + "products/"+category+"/"+id );
+  const response = await fetch(baseUrl + "products/" + category + "/" + id );
   if (response.ok) return response.json();
   throw response;
 }
-export async function postProduct(product) {
-  const response = await fetch(baseUrl + "products/",{method:"post",body:product});
+export async function postProduct(category,product) {
+  const response = await fetch(baseUrl + "products/" + category,{method:"post",body:product});
   if (response.ok) return response.json();
   throw response;
 }
-export async function putProduct(id,product) {
-  const response = await fetch(baseUrl + "products/" + id,{method:"put",body:product});
+export async function putProduct(category,id,product) {
+  const response = await fetch(baseUrl + "products/" + category + "/" + id,{method:"patch",body:product});
   if (response.ok) return response.json();
   throw response;
 }
-export async function deleteProduct(id) {
-  const response = await fetch(baseUrl + "products/" + id,{method:"delete"});
+export async function deleteProduct(category,id) {
+  const response = await fetch(baseUrl + "products/" + category + "/" + id,{method:"delete"});
   if (response.ok) return response.json();
   throw response;
 }
