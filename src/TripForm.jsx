@@ -6,11 +6,17 @@ import { getProduct } from "./services/productService";
 
 export default function TripForm() {
   const [trips, setTrips] = useState([])
-  const [trip, setTrip] = useState()
+  const [trip, setTrip] = useState({})
   const {tripId}= useParams()
+  console.log(Date(trip.startTrip));
   useEffect(()=>{
-    getProduct("trips",tripId).then((res)=>{setTrip(res)})
+    getProduct("trips",1).then((res)=>{
+      console.log(res);
+      setTrip(res);
+    });
+    
   },[tripId])
+  console.log(trip.title);
 console.log(tripId);
   return (
     <>
@@ -18,14 +24,14 @@ console.log(tripId);
         <h1>Trip Modus </h1>
 
       <form action="" method="post">
-         <div>
+         <div> 
 
           <label htmlFor="title">Title </label>
           <input type="text" name="title" id="title" value={trip.title}  />
           <label htmlFor="description">Description</label>
-          <textarea rows={3} name="description" id="description" />
-          <label htmlFor="startTrip">Start of Trip</label>
-          <input type="date" name="startTrip" id="startTrip" />
+          <textarea rows={3} name="description" id="description" value={trip.description} />
+          <label htmlFor="startTrip" >Start of Trip</label>
+          <input type="date" name="startTrip" id="startTrip" value={Date(trip.startTrip)} />
           <label htmlFor="endTrip">End of trip</label>
           <input type="date" name="endTrip" id="endTrip" />
          </div>
