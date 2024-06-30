@@ -26,7 +26,7 @@ export default function EmployeeForm() {
         <>
             <div>
                 <h1>Employee Data</h1>
-                <form onSubmit={onSubmit}>
+                <form onSubmit={onSubmit} className="card">
                     <label htmlFor="name">name</label>
                     <input type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} value={name} />
                     <label htmlFor="contact">emergency contact</label>
