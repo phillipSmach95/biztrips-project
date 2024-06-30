@@ -32,6 +32,14 @@ form {
 .checkbox-div{
     display: flex;
     flex-direction: column;
+    border: black solid 4px;
+
+    
+}
+
+.form-buttons{
+
+grid-row: 1;
 }
 
 input[type=checkbox]{

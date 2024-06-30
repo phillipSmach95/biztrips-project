@@ -4,22 +4,24 @@ import "./TripForm.css"
 import { useEffect, useState } from "react";
 import { getProduct } from "./services/productService";
 export default function MeetingForm() {
-  const [meeting, setMeeting] = useState()
-  let { id } = useParams;
+  const [title, setTitle] = useState("")
+  const { meetingId } = useParams();
   useEffect(()=>{
-        getProduct(id).then((res)=>setMeeting(res))
-  },[id])
+        getProduct("meetings",meetingId).then((res)=>{
+          setTitle(res.title)
+        })
+  },[meetingId])
   return (
     <>
       <h1>Meeting Data</h1>
-      <form action="" method="post">
+      <form className="card">
         <label htmlFor="">select Trip to add meeting</label>
         <select name="" id="">
           <option value="some Trip">some Trip</option>
           <option value="some other Trip">some otherTrip</option>
         </select>
-        <label htmlFor="">{meeting}</label>
-        <input type="text" name="" id="" />
+        <label htmlFor="">name</label>
+        <input type="text" name="" id="" value={title} />
         <label htmlFor="">description</label>
         <input type="text" name="" id="" />
         <div>

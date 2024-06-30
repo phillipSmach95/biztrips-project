@@ -12,17 +12,17 @@ export default function Meetings() {
     });
   }, []);
 
-  function renderMeetings(m) {
+  function renderMeetings(m, i) {
     const trip = trips[m.tripId]?.title
     return (
       <>
-        <div className="product" key={m.id}>
+        <div className="card" key={i}>
           <div>
             <h2>{trip}</h2>
-            <h4>Meeting {m.title}</h4>
+            <h4> {m.title}</h4>
             <p>{m.description}</p>
             <div>
-              <Link to={`meetings/meetingform/${m.id}`}>edit meeting</Link>
+              <Link to={`/meetingform/${m.id}`}>edit meeting</Link>
             </div>
           </div>
         </div>
@@ -41,7 +41,10 @@ export default function Meetings() {
           <option value="3">March</option>
         </select>
       </section>
-      {meetings.map((m) => renderMeetings(m))}
+        <h1>Meetings</h1>
+      <div className="card-wraper">
+      {meetings.map(renderMeetings)}
+      </div>
     </>
   );
 }

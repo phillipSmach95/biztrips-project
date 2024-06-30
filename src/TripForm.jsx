@@ -18,13 +18,13 @@ export default function TripForm() {
   const toStringDate = (date) => `${date[0]}-${String(date[1]).padStart(2, '0')}-${String(date[2]).padStart(2, '0')}`;
   const toStringTime = (date) => `${String(date[3]).padStart(2, '0')}:${String(date[4]).padStart(2, '0')}`;
   const toIntArray = (stringDate, stringTime) => {
-    const [year, month, day] = stringDate.split('-').map(Number);
-    const [hour, minute] = stringTime.split(':').map(Number);
+    const [year, month, day] = stringDate.split('-').map((e) => Number(e));
+    const [hour, minute] = stringTime.split(':').map((e) => Number(e));
     const updatedValues = [year, month, day, hour, minute];
     return updatedValues
   }
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault()
     const body = {
       title: title,
       description: description,
@@ -36,24 +36,22 @@ export default function TripForm() {
     console.log(body);
   }
 
-  function showEmployees(e) {
+  function showEmployees(employee, index) {
     let value = false;
-    if (paticipants.includes(e.id))
+    if (paticipants.includes(employee.id))
       value = true;
-     const handleChange =(isParticipant)=>{
-      if (isParticipant){
-        setPaticipants([...paticipants, e.id])
-        console.log(paticipants);
-      }else{
-        setPaticipants(paticipants.filter((v)=>v !== e.id))
-        console.log(paticipants);
+    const handleChange = (isParticipant) => {
+      if (isParticipant) {
+        setPaticipants([...paticipants, employee.id])
+      } else {
+        setPaticipants(paticipants.filter((value) => value !== employee.id))
       }
-     }
+    }
     return (
       <>
-        <label key={e.id} htmlFor={`employee${e.id}`}>
-          <input type="checkbox" name={`employee${e.id}`} id={`employee${e.id}`} onChange={(e)=>{handleChange(e.target.checked)}} checked={value}/>
-          {e.name}
+        <label key={index} htmlFor={`employee${employee.id}`}>
+          <input type="checkbox" name={`employee${employee.id}`} id={`employee${employee.id}`} onChange={(e) => { handleChange(e.target.checked) }} checked={value} />
+          {employee.name}
         </label>
       </>
     )
@@ -79,11 +77,11 @@ export default function TripForm() {
 
   return (
     <>
-      <div className="content">
         <h1>Trip Modus </h1>
+      <div className=" card-wraper">
 
-        <form onSubmit={handleSubmit} >
-          <div>
+        <form onSubmit={handleSubmit} className="card">
+          <div className="card">
 
             <label htmlFor="title">Title </label>
             <input type="text" name="title" id="title" onChange={(e) => { setTitle(e.target.value) }} value={title} />
@@ -102,10 +100,13 @@ export default function TripForm() {
             </div>
           </div>
 
-          <div className="checkbox-div">
-            {employees.map((e)=> showEmployees(e))}
+            <h2>Participants</h2>
+          <div className="checkbox-div ">
+            {employees.map((employee, index) => showEmployees(employee, index))}
           </div>
+          <div className="form-buttons">
           <button type="submit">Save</button>
+          </div>
         </form>
       </div>
     </>
