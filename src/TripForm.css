@@ -21,7 +21,13 @@ form {
     /* font: 20px sans-serif; */
     padding: 20px;
     width: 100vh;
-
+    
+}
+.date-and-time{
+    display: grid;
+    /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+    grid-auto-flow: column;
+    
 }
 .checkbox-div{
     display: flex;
