@@ -69,7 +69,8 @@ export default function App() {
   return (
     <>
         <Header />
-     
+     <div className="content-wrapper">
+
           <section className="content">
             <Routes>
               <Route path="/" element={<Trips />} />
@@ -81,6 +82,7 @@ export default function App() {
               <Route path="/employeeform/:employeeId" element={<EmployeeForm />} />
             </Routes>
           </section>
+     </div>
         
       <Footer />
     </>
