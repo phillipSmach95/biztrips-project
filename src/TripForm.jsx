@@ -1,4 +1,4 @@
-import "./TripForm.css";
+ 
 import "./App.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -77,36 +77,71 @@ export default function TripForm() {
 
   return (
     <>
-        <h1>Trip Modus </h1>
-      <div className=" card-wraper">
+      <h1>Trip Modus </h1>
+      <div className=" card">
 
-        <form onSubmit={handleSubmit} className="card">
-          <div className="card">
+        <form onSubmit={handleSubmit} >
 
-            <label htmlFor="title">Title </label>
-            <input type="text" name="title" id="title" onChange={(e) => { setTitle(e.target.value) }} value={title} />
-            <label htmlFor="description">Description</label>
-            <textarea rows={3} name="description" id="description" onChange={(e) => { setDescription(e.target.value) }} value={description} />
-            <label htmlFor="startTrip" >Start of Trip</label>
-            <div className="date-and-time">
-              <input type="date" name="startTrip" id="startTrip" onChange={(e) => { setStartTripDate(e.target.value); console.log(startTripDate); }} value={startTripDate} />
-              <input type="time" name="startTrip" id="startTrip" onChange={(e) => { setStartTripTime(e.target.value); console.log(startTripTime); }} value={startTripTime} />
+          <div className="form-fields">
+            <div className="grid-2 ">
+
+              <div>
+
+                <div className="form-label-input">
+                  <label htmlFor="title">Title </label>
+                  <input type="text" name="title" id="title" onChange={(e) => { setTitle(e.target.value) }} value={title} />
+                </div>
+
+
+
+
+
+                <div className="form-label-input">
+
+                  <label htmlFor="description">Description</label>
+                  <textarea rows={3} name="description" id="description" onChange={(e) => { setDescription(e.target.value) }} value={description} />
+                </div>
+
+
+
+
+
+                <div className="form-label-input">
+                  <label htmlFor="startTrip" >Start of Trip</label>
+                  <div className="date-and-time">
+                    <input type="date" name="startTrip" id="startTrip" onChange={(e) => { setStartTripDate(e.target.value); console.log(startTripDate); }} value={startTripDate} />
+                    <input type="time" name="startTrip" id="startTrip" onChange={(e) => { setStartTripTime(e.target.value); console.log(startTripTime); }} value={startTripTime} />
+                  </div>
+                </div>
+
+
+
+
+
+                <div className="form-label-input">
+                  <label htmlFor="endTrip">End of trip</label>
+                  <div className="date-and-time">
+                    <input type="date" name="endTrip" id="endTrip" onChange={(e) => { setEndTripDate(e.target.value) }} value={endTripDate} />
+                    <input type="time" name="endTrip" id="endTrip" onChange={(e) => { setEndTripTime(e.target.value) }} value={endTripTime} />
+                  </div>
+                </div>
+
+              </div>
+
+
+
+
+
+              <div className="form-label-input">
+                <h2>Participants</h2>
+                <div className="checkbox-div ">
+                  {employees.map((employee, index) => showEmployees(employee, index))}
+                </div>
+              </div>
             </div>
+          </div>
+          <button className="btn-primary" type="submit">Save</button>
 
-            <label htmlFor="endTrip">End of trip</label>
-            <div className="date-and-time">
-              <input type="date" name="endTrip" id="endTrip" onChange={(e) => { setEndTripDate(e.target.value) }} value={endTripDate} />
-              <input type="time" name="endTrip" id="endTrip" onChange={(e) => { setEndTripTime(e.target.value) }} value={endTripTime} />
-            </div>
-          </div>
-
-            <h2>Participants</h2>
-          <div className="checkbox-div ">
-            {employees.map((employee, index) => showEmployees(employee, index))}
-          </div>
-          <div className="form-buttons">
-          <button type="submit">Save</button>
-          </div>
         </form>
       </div>
     </>

@@ -1,37 +1,64 @@
 import { useParams } from "react-router-dom";
-import "./App" 
-import "./TripForm.css"
+import "./App"
+ 
+import "./MeetingForm.css"
 import { useEffect, useState } from "react";
-import { getProduct } from "./services/productService";
+import { getProduct, getProducts } from "./services/productService";
 export default function MeetingForm() {
   const [title, setTitle] = useState("")
+  const [trips, setTrips] = useState([])
+  const [tripId, setTripId] = useState("")
   const { meetingId } = useParams();
-  useEffect(()=>{
-        getProduct("meetings",meetingId).then((res)=>{
-          setTitle(res.title)
-        })
-  },[meetingId])
+  function renderTrips(t, i) {
+    return (
+      <>
+        <option key={i} value={t.id}>{t.title}</option>
+      </>
+    )
+  }
+
+  useEffect(() => {
+    getProduct("meetings", meetingId).then((res) => {
+      setTitle(res.title)
+    })
+    getProducts("trips").then((res) => setTrips(res))
+  }, [meetingId])
   return (
     <>
       <h1>Meeting Data</h1>
-      <form className="card">
-        <label htmlFor="">select Trip to add meeting</label>
-        <select name="" id="">
-          <option value="some Trip">some Trip</option>
-          <option value="some other Trip">some otherTrip</option>
-        </select>
-        <label htmlFor="">name</label>
-        <input type="text" name="" id="" value={title} />
-        <label htmlFor="">description</label>
-        <input type="text" name="" id="" />
-        <div>
-          <label htmlFor="">
-            <input type="text" name="" id="" />
-            paricipants
-          </label>
-        </div>
-        <button type="submit">Save</button>
-      </form>
+   <div className="card">
+
+        <form >
+          <div className="form-fields">
+
+            <div className="form-label-input">
+
+              <label htmlFor="">select Trip to add meeting</label>
+              <select name="" id="" onChange={(e) => setTripId(e.target.value)} value={tripId}>
+                {trips.map(renderTrips)}
+              </select>
+            </div>
+            <div className="form-label-input">
+
+              <label htmlFor="">name</label>
+              <input type="text" name="" id="" value={title} />
+            </div>
+            <div className="form-label-input">
+
+              <label htmlFor="">description</label>
+              <input type="text" name="" id="" />
+            </div>
+            <div className="form-label-input">
+              <label htmlFor=""> Paricipants</label>
+              <input type="text" name="" id="" />
+
+            </div>
+          </div>
+          <button type="submit">Save</button>
+
+        </form>
+    
+   </div>
     </>
   );
 }
