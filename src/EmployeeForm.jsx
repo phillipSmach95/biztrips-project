@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import "./App"
-import "./TripForm.css"
+ 
 import { getProduct } from "./services/productService"
 import { useParams } from "react-router-dom"
 
