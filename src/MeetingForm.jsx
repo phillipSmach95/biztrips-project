@@ -4,14 +4,15 @@ import "./App"
 import { useEffect, useState } from "react";
 import { getProduct, getProducts } from "./services/productService";
 export default function MeetingForm() {
+  const [description, setDescription] = useState("")
   const [title, setTitle] = useState("")
   const [trips, setTrips] = useState([])
   const [tripId, setTripId] = useState("")
   const { meetingId } = useParams();
-  function renderTrips(t, i) {
+  function renderTrips(t) {
     return (
       <>
-        <option key={i} value={t.id}>{t.title}</option>
+        <option key={t.id} value={t.id}>{t.title}</option>
       </>
     )
   }
@@ -19,6 +20,7 @@ export default function MeetingForm() {
   useEffect(() => {
     getProduct("meetings", meetingId).then((res) => {
       setTitle(res.title)
+      setDescription(res.description)
     })
     getProducts("trips").then((res) => setTrips(res))
   }, [meetingId])
@@ -39,18 +41,13 @@ export default function MeetingForm() {
             </div>
             <div className="form-label-input">
 
-              <label htmlFor="">name</label>
-              <input type="text" name="" id="" value={title} />
+              <label htmlFor="titel">Titel</label>
+              <input type="text" name="titel" id="titel" onChange={(e)=>setTitle(e.target.value)} value={title} />
             </div>
             <div className="form-label-input">
 
-              <label htmlFor="">description</label>
-              <input type="text" name="" id="" />
-            </div>
-            <div className="form-label-input">
-              <label htmlFor=""> Paricipants</label>
-              <input type="text" name="" id="" />
-
+              <label htmlFor="description">Description</label>
+              <input type="text" name="description" id="description" onChange={(e)=>setDescription(e.target.value)} value={description} />
             </div>
           </div>
           <button type="submit">Save</button>
