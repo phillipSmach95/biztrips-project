@@ -1,6 +1,6 @@
 import React from "react";
-// import { HashRouter as BrowserRouter} from "react-router-dom"
-import {BrowserRouter } from "react-router-dom"
+ import { HashRouter as BrowserRouter} from "react-router-dom"
+//import {BrowserRouter } from "react-router-dom"
 import {createRoot} from "react-dom/client";
 import App from "./App";
 
