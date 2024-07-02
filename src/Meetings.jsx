@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getProducts } from "./services/productService";
 
 export default function Meetings() {
@@ -17,16 +16,17 @@ export default function Meetings() {
     const trip = trips[m.tripId-1]?.title
     return (
       <>
+      <a className="card-hover" href={`/meetingform/${m.id}`}>
         <div className="card" key={m.id}>
           <div>
             <h2>{trip }</h2>
             <h4> {m.title}</h4>
             <p>{m.description}</p>
             <div>
-              <Link to={`/meetingform/${m.id}`}>edit meeting</Link>
             </div>
           </div>
         </div>
+        </a>
       </>
     );
   }

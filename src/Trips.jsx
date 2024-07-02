@@ -11,7 +11,7 @@ export default function Trips() {
   }, []);
   function renderTrip(t) {
     return (
-      <div key={t.id} className="card">
+      <a key={t.id} className="card-hover card" href={"/tripform/" + t.id}>
         <div className="">
 
           <div>
@@ -30,14 +30,8 @@ export default function Trips() {
 
           <p>{t.description}</p>
 
-          <div>
-            <Link to={"/tripform/" + t.id}>
-              Add to Triplist
-            </Link>
-          </div>
-
         </div>
-      </div>
+      </a>
     );
   }
   return (
