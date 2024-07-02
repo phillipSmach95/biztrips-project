@@ -12,13 +12,14 @@ export default function Meetings() {
     });
   }, []);
 
-  function renderMeetings(m, i) {
-    const trip = trips[m.tripId]?.title
+  function renderMeetings(m) {
+    
+    const trip = trips[m.tripId-1]?.title
     return (
       <>
-        <div className="card" key={i}>
+        <div className="card" key={m.id}>
           <div>
-            <h2>{trip}</h2>
+            <h2>{trip }</h2>
             <h4> {m.title}</h4>
             <p>{m.description}</p>
             <div>

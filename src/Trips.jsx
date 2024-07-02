@@ -11,25 +11,33 @@ export default function Trips() {
   }, []);
   function renderTrip(t) {
     return (
-      <figure className="card" key={t.id}>
-        <div>
-          <img src={"images/items/" + t.id + ".jpg"} alt="name " />
-        </div>
-        <figcaption>
+      <div key={t.id} className="card">
+        <div className="">
+
+          <div>
+            <img src={"images/items/" + t.id + ".jpg"} alt="name " />
+          </div>
+
           <h2>{t.title} {t.id}</h2>
+
+
           <div>
             <span>
               {t.startTrip[2] + "-" + t.startTrip[1] + "-" + t.startTrip[0]}
             </span>
           </div>
+
+
           <p>{t.description}</p>
+
           <div>
             <Link to={"/tripform/" + t.id}>
               Add to Triplist
             </Link>
           </div>
-        </figcaption>
-      </figure>
+
+        </div>
+      </div>
     );
   }
   return (

@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import "./App"
  
-import "./MeetingForm.css"
 import { useEffect, useState } from "react";
 import { getProduct, getProducts } from "./services/productService";
 export default function MeetingForm() {
