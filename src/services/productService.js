@@ -16,7 +16,7 @@ export async function postProduct(category,product) {
   if (response.ok) return response.json();
   throw response;
 }
-export async function putProduct(category,id,product) {
+export async function patchProduct(category,id,product) {
   const response = await fetch(baseUrl + category + "/" + id,{method:"patch",body:product});
   if (response.ok) return response.json();
   throw response;

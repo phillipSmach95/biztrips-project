@@ -2,7 +2,7 @@
 import "./App.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getProduct, getProducts } from "./services/productService";
+import { getProduct, getProducts, patchProduct } from "./services/productService";
 
 export default function TripForm() {
 
@@ -15,6 +15,32 @@ export default function TripForm() {
   const [startTripTime, setStartTripTime] = useState("")
   const [endTripDate, setEndTripDate] = useState("")
   const [endTripTime, setEndTripTime] = useState("")
+  const [isUpdate, setIsUpdate] = useState(false)
+  const [isDelete, setIsDelete] = useState(false)
+  const [isCreate, setIsCreate] = useState(false)
+  const [formData, setFormData] = useState({})
+  const onSaveClick = (event) => {
+    console.log(isUpdate);
+    setIsUpdate(true)
+    console.log(isUpdate);
+    event.preventDefault()
+    setFormData({
+      title:title,
+      meetings:meetings,
+      description:description,
+      startTrip:toIntArray(startTripDate,startTripTime),
+      endTrip:toIntArray(endTripDate,endTripTime),
+      paticipants:paticipants
+    })
+    console.log(formData);
+  }
+
+  const resetFetchtype = () => {
+    setIsCreate(false)
+    setIsUpdate(false)
+    setIsDelete(false)
+  }
+
   const toStringDate = (date) => `${date[0]}-${String(date[1]).padStart(2, '0')}-${String(date[2]).padStart(2, '0')}`;
   const toStringTime = (date) => `${String(date[3]).padStart(2, '0')}:${String(date[4]).padStart(2, '0')}`;
   const toIntArray = (stringDate, stringTime) => {
@@ -46,11 +72,12 @@ export default function TripForm() {
       } else {
         setPaticipants(paticipants.filter((value) => value !== employee.id))
       }
+      console.log(paticipants);
     }
     return (
       <>
         <label key={index} htmlFor={`employee${employee.id}`}>
-          <input type="checkbox" name={`employee${employee.id}`} id={`employee${employee.id}`} onChange={(e) => { handleChange(e.target.checked) }} checked={value} />
+          <input type="checkbox" name={`employee${employee.id}`} id={`employee${employee.id}`}value={employee.id} onChange={(e) => { handleChange(e.target.checked) }} checked={value} />
           {employee.name}
         </label>
       </>
@@ -59,28 +86,36 @@ export default function TripForm() {
 
   const { tripId } = useParams()
   useEffect(() => {
-    getProducts("employees").then((res) => {
-      setEmployees(res)
-    })
-
-    getProduct("trips", tripId).then((res) => {
-      setDescription(res.description)
-      setTitle(res.title)
-      setStartTripDate(toStringDate(res.startTrip))
-      setStartTripTime(toStringTime(res.startTrip))
-      setEndTripDate(toStringDate(res.endTrip))
-      setEndTripTime(toStringTime(res.endTrip))
-      setPaticipants(res.paticipants)
-      setMeetings(res.meetings)
-    });
-  }, [tripId])
+    console.log(isUpdate);
+    if (isUpdate){
+      patchProduct("trips",tripId,formData).then((res)=>{ console.log(res);})
+      console.log(formData);
+      
+    }
+      console.log("error");
+      
+      getProducts("employees").then((res) => {
+        setEmployees(res)
+      })
+      getProduct("trips", tripId).then((res) => {
+        setDescription(res.description)
+        setTitle(res.title)
+        setStartTripDate(toStringDate(res.startTrip))
+        setStartTripTime(toStringTime(res.startTrip))
+        setEndTripDate(toStringDate(res.endTrip))
+        setEndTripTime(toStringTime(res.endTrip))
+        setPaticipants(res.paticipants)
+        setMeetings(res.meetings)
+      });
+      return setIsUpdate(false)
+  }, [tripId,isUpdate,formData])
 
   return (
     <>
       <h1>Trip Modus </h1>
       <div className=" card">
 
-        <form onSubmit={handleSubmit} >
+        <form  >
 
           <div className="form-fields">
             <div className="grid-2 ">
@@ -140,7 +175,7 @@ export default function TripForm() {
               </div>
             </div>
           </div>
-          <button className="btn-primary" type="submit">Save</button>
+          <button className="btn-primary" type="submit" onClick={onSaveClick}>Save</button>
 
         </form>
       </div>
