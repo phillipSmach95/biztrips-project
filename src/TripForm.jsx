@@ -87,11 +87,11 @@ export default function TripForm() {
   const { tripId } = useParams()
   useEffect(() => {
     console.log(isUpdate);
-    if (isUpdate){
-      patchProduct("trips",tripId,formData).then((res)=>{ console.log(res);})
-      console.log(formData);
-      
-    }
+    patchProduct("trips",tripId,formData).then((res)=>{ console.log(res);})
+    console.log(formData);
+  }, [formData])
+
+  useEffect(() => {
       console.log("error");
       
       getProducts("employees").then((res) => {
@@ -107,8 +107,7 @@ export default function TripForm() {
         setPaticipants(res.paticipants)
         setMeetings(res.meetings)
       });
-      return setIsUpdate(false)
-  }, [tripId,isUpdate,formData])
+  }, [])
 
   return (
     <>
@@ -144,7 +143,7 @@ export default function TripForm() {
                 <div className="form-label-input">
                   <label htmlFor="startTrip" >Start of Trip</label>
                   <div className="date-and-time">
-                    <input type="date" name="startTrip" id="startTrip" onChange={(e) => { setStartTripDate(e.target.value); console.log(startTripDate); }} value={startTripDate} />
+                    <input type="date" name="startTrip" id="startTrip" onChange={(e) => { setStartTripDate(e.target.value); console.log("Times are changing", startTripDate); }} value={startTripDate} />
                     <input type="time" name="startTrip" id="startTrip" onChange={(e) => { setStartTripTime(e.target.value); console.log(startTripTime); }} value={startTripTime} />
                   </div>
                 </div>
@@ -175,7 +174,7 @@ export default function TripForm() {
               </div>
             </div>
           </div>
-          <button className="btn-primary" type="submit" onClick={onSaveClick}>Save</button>
+          <button className="btn-primary" onClick={onSaveClick}>Save</button>
 
         </form>
       </div>

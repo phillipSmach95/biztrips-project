@@ -17,7 +17,8 @@ export async function postProduct(category,product) {
   throw response;
 }
 export async function patchProduct(category,id,product) {
-  const response = await fetch(baseUrl + category + "/" + id,{method:"patch",body:product});
+  console.log(product);
+  const response = await fetch(baseUrl + category + "/" + id,{method:"PATCH",body:product});
   if (response.ok) return response.json();
   throw response;
 }
