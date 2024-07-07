@@ -1,11 +1,9 @@
 import "./App"
 
 import { useEffect, useState } from "react"
-import { deleteProduct, getProducts } from "./services/productService"
-import { useParams } from "react-router-dom"
-export default function Empoyees() {
+import { getProducts } from "./services/productService"
+export default function Employees() {
     const [employees, setEmployees] = useState([])
-    const {employeeId} = useParams()
 
     useEffect(() => {
         getProducts("employees").then((res) => {
@@ -18,12 +16,12 @@ export default function Empoyees() {
         <a className="card-hover" href={"/newemployeeform"}>
           <button className="btn-plus card">+ Add employee</button>
         </a>
-            {employees.map((employee, i)=>{
+            {employees.map((employee)=>{
                 return (<>
             <a className="card-hover" href={"/employeeform/" + employee.id}>
-                <div className="card">
+                <div key={employee.id} className="card">
 
-                    <p key={i}>{employee.name}</p>
+                    <p >{employee.name}</p>
                     <p >{employee.emergencyContact}</p>
                 </div>
             </a>
