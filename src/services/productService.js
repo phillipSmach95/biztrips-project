@@ -6,24 +6,38 @@ export async function getProducts(category) {
   throw response;
 }
 
-export async function getProduct(category,id) {
-  const response = await fetch(baseUrl + category + "/" + id );
+export async function getProduct(category, id) {
+  const response = await fetch(baseUrl + category + "/" + id);
   if (response.ok) return response.json();
   throw response;
 }
-export async function postProduct(category,product) {
-  const response = await fetch(baseUrl +  category,{method:"post",body:product});
+export async function postProduct(category, product) {
+  const response = await fetch(baseUrl + category, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: product,
+  });
   if (response.ok) return response.json();
   throw response;
 }
-export async function patchProduct(category,id,product) {
+export async function patchProduct(category, id, product) {
   console.log(product);
-  const response = await fetch(baseUrl + category + "/" + id,{method:"PATCH",body:product});
+  const response = await fetch(baseUrl + category + "/" + id, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "PATCH",
+    body: JSON.stringify(product),
+  });
   if (response.ok) return response.json();
   throw response;
 }
-export async function deleteProduct(category,id) {
-  const response = await fetch(baseUrl +  category + "/" + id,{method:"delete"});
+export async function deleteProduct(category, id) {
+  const response = await fetch(baseUrl + category + "/" + id, {
+    method: "DELETE",
+  });
   if (response.ok) return response.json();
   throw response;
 }

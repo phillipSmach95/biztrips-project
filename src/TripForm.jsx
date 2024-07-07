@@ -1,6 +1,6 @@
- 
+
 import "./App.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProduct, getProducts, patchProduct } from "./services/productService";
 
@@ -15,32 +15,26 @@ export default function TripForm() {
   const [startTripTime, setStartTripTime] = useState("")
   const [endTripDate, setEndTripDate] = useState("")
   const [endTripTime, setEndTripTime] = useState("")
-  const [isUpdate, setIsUpdate] = useState(false)
-  const [isDelete, setIsDelete] = useState(false)
-  const [isCreate, setIsCreate] = useState(false)
   const [formData, setFormData] = useState({})
+  const navigate = useNavigate()
   const onSaveClick = (event) => {
-    console.log(isUpdate);
-    setIsUpdate(true)
-    console.log(isUpdate);
-    event.preventDefault()
-    setFormData({
-      title:title,
-      meetings:meetings,
-      description:description,
-      startTrip:toIntArray(startTripDate,startTripTime),
-      endTrip:toIntArray(endTripDate,endTripTime),
-      paticipants:paticipants
-    })
     console.log(formData);
+    event.preventDefault()
+    updateFormdata()
+    console.log(formData);
+    patchProduct("trips", tripId, formData).then((res) => { console.log(res); })
+    navigate("/trips")
   }
-
-  const resetFetchtype = () => {
-    setIsCreate(false)
-    setIsUpdate(false)
-    setIsDelete(false)
+  const updateFormdata= ()=>{
+    setFormData({
+      title: title,
+      meetings: meetings,
+      description: description,
+      startTrip: toIntArray(startTripDate, startTripTime),
+      endTrip: toIntArray(endTripDate, endTripTime),
+      paticipants: paticipants
+    })
   }
-
   const toStringDate = (date) => `${date[0]}-${String(date[1]).padStart(2, '0')}-${String(date[2]).padStart(2, '0')}`;
   const toStringTime = (date) => `${String(date[3]).padStart(2, '0')}:${String(date[4]).padStart(2, '0')}`;
   const toIntArray = (stringDate, stringTime) => {
@@ -49,133 +43,92 @@ export default function TripForm() {
     const updatedValues = [year, month, day, hour, minute];
     return updatedValues
   }
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const body = {
-      title: title,
-      description: description,
-      startTrip: toIntArray(startTripDate, startTripTime),
-      endTrip: toIntArray(endTripDate, endTripTime),
-      paticipants: paticipants,
-      meetings: meetings,
-    }
-    console.log(body);
-  }
-
-  function showEmployees(employee, index) {
-    let value = false;
-    if (paticipants.includes(employee.id))
-      value = true;
-    const handleChange = (isParticipant) => {
-      if (isParticipant) {
-        setPaticipants([...paticipants, employee.id])
-      } else {
-        setPaticipants(paticipants.filter((value) => value !== employee.id))
-      }
-      console.log(paticipants);
-    }
-    return (
-      <>
-        <label key={index} htmlFor={`employee${employee.id}`}>
-          <input type="checkbox" name={`employee${employee.id}`} id={`employee${employee.id}`}value={employee.id} onChange={(e) => { handleChange(e.target.checked) }} checked={value} />
-          {employee.name}
-        </label>
-      </>
-    )
-  }
 
   const { tripId } = useParams()
-  useEffect(() => {
-    console.log(isUpdate);
-    patchProduct("trips",tripId,formData).then((res)=>{ console.log(res);})
-    console.log(formData);
-  }, [formData])
 
   useEffect(() => {
-      console.log("error");
-      
-      getProducts("employees").then((res) => {
-        setEmployees(res)
+
+    getProducts("employees").then((res) => {
+      setEmployees(res)
+    })
+    getProduct("trips", tripId).then((res) => {
+      setDescription(res.description)
+      setTitle(res.title)
+      setStartTripDate(toStringDate(res.startTrip))
+      setStartTripTime(toStringTime(res.startTrip))
+      setEndTripDate(toStringDate(res.endTrip))
+      setEndTripTime(toStringTime(res.endTrip))
+      setPaticipants(res.paticipants)
+      setMeetings(res.meetings)
+      setFormData({
+        title: res.title,
+        description: res.description,
+        startTrip: res.startTrip,
+        endTrip: res.endTrip,
+        paticipants: res.paticipants,
+        meetings: res.meetings,
       })
-      getProduct("trips", tripId).then((res) => {
-        setDescription(res.description)
-        setTitle(res.title)
-        setStartTripDate(toStringDate(res.startTrip))
-        setStartTripTime(toStringTime(res.startTrip))
-        setEndTripDate(toStringDate(res.endTrip))
-        setEndTripTime(toStringTime(res.endTrip))
-        setPaticipants(res.paticipants)
-        setMeetings(res.meetings)
-      });
-  }, [])
+    });
+  }, [tripId])
 
   return (
     <>
       <h1>Trip Modus </h1>
       <div className=" card">
-
         <form  >
-
           <div className="form-fields">
             <div className="grid-2 ">
-
               <div>
-
                 <div className="form-label-input">
                   <label htmlFor="title">Title </label>
-                  <input type="text" name="title" id="title" onChange={(e) => { setTitle(e.target.value) }} value={title} />
+                  <input type="text" name="title" id="title" onChange={(e) => { setTitle(e.target.value); updateFormdata(); }} value={title} />
                 </div>
-
-
-
-
-
                 <div className="form-label-input">
-
                   <label htmlFor="description">Description</label>
-                  <textarea rows={3} name="description" id="description" onChange={(e) => { setDescription(e.target.value) }} value={description} />
+                  <textarea rows={3} name="description" id="description" onChange={(e) => { setDescription(e.target.value); updateFormdata(); }} value={description} />
                 </div>
-
-
-
-
-
                 <div className="form-label-input">
                   <label htmlFor="startTrip" >Start of Trip</label>
                   <div className="date-and-time">
-                    <input type="date" name="startTrip" id="startTrip" onChange={(e) => { setStartTripDate(e.target.value); console.log("Times are changing", startTripDate); }} value={startTripDate} />
-                    <input type="time" name="startTrip" id="startTrip" onChange={(e) => { setStartTripTime(e.target.value); console.log(startTripTime); }} value={startTripTime} />
+                    <input type="date" name="startTrip" id="startTrip" onChange={(e) => { setStartTripDate(e.target.value);updateFormdata(); console.log("Times are changing", startTripDate); }} value={startTripDate} />
+                    <input type="time" name="startTrip" id="startTrip" onChange={(e) => { setStartTripTime(e.target.value);updateFormdata(); console.log(startTripTime); }} value={startTripTime} />
                   </div>
                 </div>
-
-
-
-
-
                 <div className="form-label-input">
                   <label htmlFor="endTrip">End of trip</label>
                   <div className="date-and-time">
-                    <input type="date" name="endTrip" id="endTrip" onChange={(e) => { setEndTripDate(e.target.value) }} value={endTripDate} />
-                    <input type="time" name="endTrip" id="endTrip" onChange={(e) => { setEndTripTime(e.target.value) }} value={endTripTime} />
+                    <input type="date" name="endTrip" id="endTrip" onChange={(e) => { setEndTripDate(e.target.value); updateFormdata(); }} value={endTripDate} />
+                    <input type="time" name="endTrip" id="endTrip" onChange={(e) => { setEndTripTime(e.target.value); updateFormdata(); }} value={endTripTime} />
                   </div>
                 </div>
-
               </div>
-
-
-
-
-
               <div className="form-label-input">
                 <h2>Participants</h2>
                 <div className="checkbox-div ">
-                  {employees.map((employee, index) => showEmployees(employee, index))}
+                  {employees.map((employee) => {
+                    let value = false;
+                    if (paticipants.includes(employee.id))
+                      value = true;
+                    const handleChange = (isParticipant) => {
+                      if (isParticipant) {
+                        setPaticipants([...paticipants, employee.id])
+                      } else {
+                        setPaticipants(paticipants.filter((value) => value !== employee.id))
+                      }
+                      console.log(paticipants);
+                    }
+                    return ((
+                      <label key={employee.id} htmlFor={`employee${employee.id}`}>
+                        <input type="checkbox" name={`employee${employee.id}`} id={`employee${employee.id}`} value={employee.id} onChange={(e) => { handleChange(e.target.checked); updateFormdata(); }} checked={value} />
+                        {employee.name}
+                      </label>
+                    ))
+                  })}
                 </div>
               </div>
             </div>
           </div>
           <button className="btn-primary" onClick={onSaveClick}>Save</button>
-
         </form>
       </div>
     </>
