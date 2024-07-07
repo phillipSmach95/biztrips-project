@@ -11,26 +11,6 @@ export default function Meetings() {
     });
   }, []);
 
-  function renderMeetings(m) {
-    
-    const trip = trips[m.tripId-1]?.title
-    return (
-      <>
-      <a className="card-hover" href={`/meetingform/${m.id}`}>
-        <div className="card" key={m.id}>
-          <div>
-            <h2>{trip }</h2>
-            <h4> {m.title}</h4>
-            <p>{m.description}</p>
-            <div>
-            </div>
-          </div>
-        </div>
-        </a>
-      </>
-    );
-  }
-
   return (
     <>
       <section id="filters">
@@ -44,7 +24,26 @@ export default function Meetings() {
       </section>
         <h1>Meetings</h1>
       <div className="card-wraper">
-      {meetings.map(renderMeetings)}
+      <a className="card-hover" href={"/newmeetingform"}>
+          <button className="btn-plus card">+ Add meeting</button>
+        </a>
+      {meetings.map((m)=>{
+        return (
+          <>
+          <a className="card-hover" href={`/meetingform/${m.id}`}>
+            <div className="card" key={m.id}>
+              <div>
+                <h2>{trips[m.tripId]?.title }</h2>
+                <h4> {m.title}</h4>
+                <p>{m.description}</p>
+                <div>
+                </div>
+              </div>
+            </div>
+            </a>
+          </>
+        );
+      })}
       </div>
     </>
   );

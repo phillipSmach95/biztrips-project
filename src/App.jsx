@@ -8,6 +8,9 @@ import Trips from "./Trips";
 import TripForm from "./TripForm";
 import MeetingForm from "./MeetingForm";
 import EmployeeForm from "./EmployeeForm";
+import NewTripForm from "./NewTripForm";
+import NewMeetingForm from "./NewMeetingForm";
+import NewEmployeeForm from "./NewEmployeeForm";
 
 // const trips = [
 //   {
@@ -68,23 +71,30 @@ export default function App() {
 
   return (
     <>
-        <Header />
-     <div className="content-wrapper">
+<div className="page-wrapper">
 
-          <section className="content">
-            <Routes>
-              <Route path="/" element={<Trips />} />
-              <Route path="/trips" element={<Trips />} />
-              <Route path="/tripform/:tripId" element={<TripForm />} />
-              <Route path="/employees" element={<Empoyees />} />
-              <Route path="/meetings" element={<Meetings />} />
-              <Route path="/meetingform/:meetingId" element={<MeetingForm />} />
-              <Route path="/employeeform/:employeeId" element={<EmployeeForm />} />
-            </Routes>
-          </section>
-     </div>
-        
+      <Header />
+
+      <section className="content-wrapper">
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Trips />} />
+            <Route path="/trips" element={<Trips />} />
+            <Route path="/tripform/:tripId" element={<TripForm />} />
+            <Route path="/newtripform" element={<NewTripForm />} />
+            <Route path="/employees" element={<Empoyees />} />
+            <Route path="/meetings" element={<Meetings />} />
+
+            <Route path="/newmeetingform" element={<NewMeetingForm />} />
+            <Route path="/meetingform/:meetingId" element={<MeetingForm />} />
+            <Route path="/employeeform/:employeeId" element={<EmployeeForm />} />
+            <Route path="/newemployeeform" element={<NewEmployeeForm />} />
+          </Routes>
+        </div>
+      </section>
+
       <Footer />
+</div>
     </>
   );
 }

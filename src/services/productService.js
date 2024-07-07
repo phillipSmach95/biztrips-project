@@ -17,7 +17,7 @@ export async function postProduct(category, product) {
       "Content-Type": "application/json",
     },
     method: "POST",
-    body: product,
+    body: JSON.stringify(product),
   });
   if (response.ok) return response.json();
   throw response;

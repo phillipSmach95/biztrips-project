@@ -11,24 +11,25 @@ export default function Trips() {
   }, []);
   function renderTrip(t) {
     return (
-      <a key={t.id} className="card-hover card" href={"/tripform/" + t.id}>
-        <div className="">
+      <a key={t.id} className="card-hover" href={"/tripform/" + t.id}>
+        <div className="card">
+          <div className="trip-display">
+            <div className="img-container">
+              <img className="trip-img" src={"images/items/" + t.id + ".jpg"} alt="name " />
+            </div>
 
-          <div>
-            <img src={"images/items/" + t.id + ".jpg"} alt="name " />
+            <h2>{t.title} {t.id}</h2>
+
+
+            <div>
+              <span>
+                {t.startTrip[2] + "-" + t.startTrip[1] + "-" + t.startTrip[0]}
+              </span>
+            </div>
+
+
+            <p>{t.description}</p>
           </div>
-
-          <h2>{t.title} {t.id}</h2>
-
-
-          <div>
-            <span>
-              {t.startTrip[2] + "-" + t.startTrip[1] + "-" + t.startTrip[0]}
-            </span>
-          </div>
-
-
-          <p>{t.description}</p>
 
         </div>
       </a>
@@ -47,6 +48,9 @@ export default function Trips() {
       </section>
       <h1>Trips</h1>
       <div className="card-wraper">
+        <a className="card-hover" href={"/newtripform"}>
+          <button className="btn-plus card">+ Add trip</button>
+        </a>
         {trips.map(renderTrip)}
       </div>
 

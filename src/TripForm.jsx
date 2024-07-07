@@ -2,7 +2,7 @@
 import "./App.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getProduct, getProducts, patchProduct } from "./services/productService";
+import { deleteProduct, getProduct, getProducts, patchProduct } from "./services/productService";
 
 export default function TripForm() {
 
@@ -17,6 +17,14 @@ export default function TripForm() {
   const [endTripTime, setEndTripTime] = useState("")
   const [formData, setFormData] = useState({})
   const navigate = useNavigate()
+
+  const onDeleteConfirm = (event)=>{
+    event.preventDefault()
+    if(window.confirm("are you sure you want to delete the trip")){
+      deleteProduct("trips",tripId)
+    }
+  }
+
   const onSaveClick = (event) => {
     console.log(formData);
     event.preventDefault()
@@ -73,7 +81,7 @@ export default function TripForm() {
 
   return (
     <>
-      <h1>Trip Modus </h1>
+      <h1>Edit Trip </h1>
       <div className=" card">
         <form  >
           <div className="form-fields">
@@ -128,6 +136,7 @@ export default function TripForm() {
               </div>
             </div>
           </div>
+          <button className="btn-primary" onClick={onDeleteConfirm}>delete</button>
           <button className="btn-primary" onClick={onSaveClick}>Save</button>
         </form>
       </div>
