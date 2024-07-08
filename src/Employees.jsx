@@ -17,15 +17,15 @@ export default function Employees() {
           <button className="btn-plus card">+ Add employee</button>
         </a>
             {employees.map((employee)=>{
-                return (<>
-            <a className="card-hover" href={"/employeeform/" + employee.id}>
-                <div key={employee.id} className="card">
+                return (
+            <a key={employee.id} className="card-hover" href={"/employeeform/" + employee.id}>
+                <div  className="card">
 
                     <p >{employee.name}</p>
                     <p >{employee.emergencyContact}</p>
                 </div>
             </a>
-        </>)})}
+        )})}
         </div>
     </>
     )

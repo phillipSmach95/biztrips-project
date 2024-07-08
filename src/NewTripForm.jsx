@@ -6,7 +6,6 @@ export default function NewTripForm() {
     const [employees, setEmployees] = useState([])
     const [title, setTitle] = useState("")
     const [paticipants, setPaticipants] = useState([])
-    const [meetings, setMeetings] = useState([])
     const [description, setDescription] = useState("")
     const [startTripDate, setStartTripDate] = useState("")
     const [startTripTime, setStartTripTime] = useState("")
@@ -17,7 +16,6 @@ export default function NewTripForm() {
     const updateFormdata = () => {
         setFormData({
             title: title,
-            meetings: meetings,
             description: description,
             startTrip: toIntArray(startTripDate, startTripTime),
             endTrip: toIntArray(endTripDate, endTripTime),
@@ -31,8 +29,6 @@ export default function NewTripForm() {
         navigate("/trips")
 
     }
-    const toStringDate = (date) => `${date[0]}-${String(date[1]).padStart(2, '0')}-${String(date[2]).padStart(2, '0')}`;
-    const toStringTime = (date) => `${String(date[3]).padStart(2, '0')}:${String(date[4]).padStart(2, '0')}`;
     const toIntArray = (stringDate, stringTime) => {
         const [year, month, day] = stringDate.split('-').map((e) => Number(e));
         const [hour, minute] = stringTime.split(':').map((e) => Number(e));

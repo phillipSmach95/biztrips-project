@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getProducts } from "./services/productService";
 
 export default function Trips() {

@@ -29,9 +29,8 @@ export default function Meetings() {
         </a>
       {meetings.map((m)=>{
         return (
-          <>
-          <a className="card-hover" href={`/meetingform/${m.id}`}>
-            <div className="card" key={m.id}>
+          <a key={m.id} className="card-hover" href={`/meetingform/${m.id}`}>
+            <div className="card" >
               <div>
                 <h2>{trips[m.tripId]?.title }</h2>
                 <h4> {m.title}</h4>
@@ -41,7 +40,6 @@ export default function Meetings() {
               </div>
             </div>
             </a>
-          </>
         );
       })}
       </div>

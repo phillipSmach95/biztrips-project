@@ -1,14 +1,15 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./App"
 
 import { useEffect, useState } from "react";
-import { getProduct, getProducts, postProduct } from "./services/productService";
+import { getProducts, postProduct } from "./services/productService";
 export default function NewMeetingForm() {
   const [description, setDescription] = useState("")
   const [title, setTitle] = useState("")
   const [trips, setTrips] = useState([])
   const [tripId, setTripId] = useState("")
   const [formData, setFormData] = useState({})
+  const navigate = useNavigate()
   const updateFormdata = () => {
     setFormData({
       title: title,
@@ -21,6 +22,7 @@ export default function NewMeetingForm() {
     event.preventDefault()
     updateFormdata()
     postProduct("meetings", formData)
+    navigate("/meetings")
   }
   useEffect(() => {
 
