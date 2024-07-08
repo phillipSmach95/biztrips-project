@@ -13,15 +13,6 @@ export default function Meetings() {
 
   return (
     <>
-      <section id="filters">
-        <label htmlFor="month">Filter by Month:</label>{" "}
-        <select id="size">
-          <option value="">All months</option>
-          <option value="1">January</option>
-          <option value="2">February</option>
-          <option value="3">March</option>
-        </select>
-      </section>
         <h1>Meetings</h1>
       <div className="card-wraper">
       <a className="card-hover" href={"/newmeetingform"}>
