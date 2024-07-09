@@ -260,11 +260,6 @@
   ],
   "employees": [
     {
-      "id": 1,
-      "name": "John Doe ",
-      "emergencyContact": "123 456 78 90"
-    },
-    {
       "id": 2,
       "name": "Jane Smith",
       "emergencyContact": "234 567 89 01"
@@ -303,11 +298,6 @@
       "id": 9,
       "name": "Henry Moore",
       "emergencyContact": "901 234 56 78"
-    },
-    {
-      "id": 10,
-      "name": "Ivy Taylor",
-      "emergencyContact": "012 345 67 89"
     }
   ]
 }

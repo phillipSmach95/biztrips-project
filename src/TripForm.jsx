@@ -18,10 +18,10 @@ export default function TripForm() {
   const [formData, setFormData] = useState({})
   const navigate = useNavigate()
 
-  const onDeleteConfirm = (event)=>{
+  const onDeleteConfirm = (event) => {
     event.preventDefault()
-    if(window.confirm("are you sure you want to delete the trip")){
-      deleteProduct("trips",tripId)
+    if (window.confirm("are you sure you want to delete the trip")) {
+      deleteProduct("trips", tripId)
     }
   }
 
@@ -33,7 +33,7 @@ export default function TripForm() {
     patchProduct("trips", tripId, formData).then((res) => { console.log(res); })
     navigate("/trips")
   }
-  const updateFormdata= ()=>{
+  const updateFormdata = () => {
     setFormData({
       title: title,
       meetings: meetings,
@@ -80,9 +80,10 @@ export default function TripForm() {
   }, [tripId])
 
   return (
-    <>
+    <div className="content-wrapper">
       <h1>Edit Trip </h1>
-      <div className=" card">
+      <div className="card">
+        <button className="delete-btn" onClick={onDeleteConfirm}><img className="icon" src={"../images/delete-icon.png"} alt="delete" /></button>
         <form  >
           <div className="form-fields">
             <div className="grid-2 ">
@@ -98,8 +99,8 @@ export default function TripForm() {
                 <div className="form-label-input">
                   <label htmlFor="startTrip" >Start of Trip</label>
                   <div className="date-and-time">
-                    <input type="date" name="startTrip" id="startTrip" onChange={(e) => { setStartTripDate(e.target.value);updateFormdata(); console.log("Times are changing", startTripDate); }} value={startTripDate} />
-                    <input type="time" name="startTrip" id="startTrip" onChange={(e) => { setStartTripTime(e.target.value);updateFormdata(); console.log(startTripTime); }} value={startTripTime} />
+                    <input type="date" name="startTrip" id="startTrip" onChange={(e) => { setStartTripDate(e.target.value); updateFormdata(); console.log("Times are changing", startTripDate); }} value={startTripDate} />
+                    <input type="time" name="startTrip" id="startTrip" onChange={(e) => { setStartTripTime(e.target.value); updateFormdata(); console.log(startTripTime); }} value={startTripTime} />
                   </div>
                 </div>
                 <div className="form-label-input">
@@ -136,10 +137,9 @@ export default function TripForm() {
               </div>
             </div>
           </div>
-          <button className="btn-primary" onClick={onDeleteConfirm}>delete</button>
           <button className="btn-primary" onClick={onSaveClick}>Save</button>
         </form>
       </div>
-    </>
+    </div>
   );
 }

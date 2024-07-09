@@ -2,16 +2,21 @@ import "./App"
 
 import { useEffect, useState } from "react"
 import { deleteProduct, getProducts } from "./services/productService"
+import Spinner from "./Spinner"
 export default function Employees() {
     const [employees, setEmployees] = useState([])
+    
     const [reload, setReload] = useState(false)
+    const [loading, setLoading] = useState(false)
 const onDeleteIconClick = (id, category)=>{
     deleteProduct(category,id)
     setReload(true)
 }
     useEffect(() => {
+        setLoading(true)
         getProducts("employees").then((res) => {
             setEmployees(res)
+            setLoading(false)
         });
     }, [reload]);
     return (<>
@@ -20,6 +25,7 @@ const onDeleteIconClick = (id, category)=>{
             <a className="card-hover" href={"/newemployeeform"}>
                 <button className="btn-plus card">+ Add employee</button>
             </a>
+            {loading ? Spinner():null}
             {employees.map((employee) => {
                 return (
                     <div className="card-hover" key={employee.id}>

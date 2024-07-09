@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
+import Spinner from "./Spinner";
 import { deleteProduct, getProducts } from "./services/productService";
 
 export default function Meetings() {
   const [meetings, setMeetings] = useState([]);
   const [trips, setTrips] = useState([]);
   const [reload, setReload] = useState(false);
+  const [loading, setLoading] = useState(false);
   const onDeleteIconClick = (id, category)=>{
     deleteProduct(category,id)
     setReload(true)
 }
   useEffect(() => {
+    setLoading(true)
     getProducts("meetings").then((res) => {
       setMeetings(res);
       getProducts("trips").then((res) => {setTrips(res)})
+      setLoading(false)
     });
   }, [reload]);
 
@@ -23,6 +27,7 @@ export default function Meetings() {
       <a className="card-hover" href={"/newmeetingform"}>
           <button className="btn-plus card">+ Add meeting</button>
         </a>
+        {loading ? Spinner():null}
       {meetings.map((m)=>{
         return (
           <div className="card-hover" key={m.id}>

@@ -21,7 +21,7 @@ export default function EmployeeForm() {
         event.preventDefault()
         if(window.confirm("are you sure you want to delete the employee")){
           deleteProduct("employees",employeeId)
-          navigate("employees")
+          navigate("/employees")
         }
       }
     const onSubmit = (event) => {
@@ -38,9 +38,10 @@ export default function EmployeeForm() {
         })
     }, [employeeId])
     return (
-        <>
+        <div className="content-wrapper">
             <h1>Employee Data</h1>
             <div className="card">
+                    <button className="delete-btn" onClick={onDeleteConfirm}><img className="icon" src={"../images/delete-icon.png"} alt="delete" /></button>
                 <form className="">
 
                     <div className="form-fields">
@@ -54,10 +55,9 @@ export default function EmployeeForm() {
                             <input type="text" name="contact" id="contact" onChange={(e) => {setEmergencyContact(e.target.value); updateFormdata()}} value={emergencyContact} />
                         </div>
                     </div>
-                    <button className="delete-btn" onClick={onDeleteConfirm}><img className="icon" src={"images/delete-icon.png"} alt="delete" /></button>
                     <button className="btn-primary" onClick={onSubmit}>Save</button>
                 </form>
             </div>
-        </>
+        </div>
     )
 }
