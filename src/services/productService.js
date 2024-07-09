@@ -1,4 +1,4 @@
-const baseUrl = process.env.REACT_APP_API_BASE_URL;
+const baseUrl = process.env.REACT_APP_API_BASE_URL
 export async function getProducts(category) {
   const response = await fetch(baseUrl + "" + category);
   if (response.ok) return response.json();
