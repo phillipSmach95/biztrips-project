@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "./services/productService";
+import { deleteProduct, getProducts } from "./services/productService";
 
 export default function Meetings() {
   const [meetings, setMeetings] = useState([]);
   const [trips, setTrips] = useState([]);
+  const [reload, setReload] = useState(false);
+  const onDeleteIconClick = (id, category)=>{
+    deleteProduct(category,id)
+    setReload(true)
+}
   useEffect(() => {
     getProducts("meetings").then((res) => {
       setMeetings(res);
       getProducts("trips").then((res) => {setTrips(res)})
     });
-  }, []);
+  }, [reload]);
 
   return (
     <>
@@ -20,7 +25,10 @@ export default function Meetings() {
         </a>
       {meetings.map((m)=>{
         return (
-          <a key={m.id} className="card-hover" href={`/meetingform/${m.id}`}>
+          <div className="card-hover" key={m.id}>
+          <button onClick={()=>onDeleteIconClick(m.id,"meetings")} className="delete-btn"><img className="icon" src={"images/delete-icon.png"} alt="delete" /></button>
+              
+          <a href={`/meetingform/${m.id}`}>
             <div className="card" >
               <div>
                 <h2>{trips[m.tripId]?.title }</h2>
@@ -31,6 +39,7 @@ export default function Meetings() {
               </div>
             </div>
             </a>
+            </div>
         );
       })}
       </div>

@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "./services/productService";
+import { deleteProduct, getProducts } from "./services/productService";
 
 export default function Trips() {
   const [trips, setTrips] = useState([]);
+  const [reload, setReload] = useState(false);
+  const onDeleteIconClick = (id, category)=>{
+    deleteProduct(category,id)
+    setReload(true)
+}
   useEffect(() => {
     getProducts("trips").then((res) => {
       setTrips(res);
     });
-  }, []);
+  }, [reload]);
   function renderTrip(t) {
     return (
+      <div className="card-hover" key={t.id}>
+      <button onClick={()=>onDeleteIconClick(t.id,"trips")} className="delete-btn"><img className="icon" src={"images/delete-icon.png"} alt="delete" /></button>
+          
       <a key={t.id} className="card-hover" href={"/tripform/" + t.id}>
         <div className="card">
           <div className="trip-display">
@@ -32,6 +40,7 @@ export default function Trips() {
 
         </div>
       </a>
+        </div>
     );
   }
   return (

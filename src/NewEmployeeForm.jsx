@@ -14,20 +14,21 @@ export default function NewEmployeeForm() {
             name: name,
             emergencyContact: emergencyContact,
         });
-        navigate("/employees")
     };
     const onDeleteConfirm = (event)=>{
         updateFormdata()
         event.preventDefault()
         if(window.confirm("are you sure you want to delete the trip")){
-          deleteProduct("employees")
+            deleteProduct("employees")
+            navigate("/employees")
         }
-      }
+    }
     const onSubmit = (event) => {
         updateFormdata()
         event.preventDefault()
         postProduct("employees", formData)
         console.log(formData);
+        navigate("/employees")
     }
     return (
         <>

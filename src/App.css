@@ -21,6 +21,24 @@ body {
 /* Avoid the IE 10-11 `min-height` bug. */
 /* } */
 
+.icon{
+  width: 20px;
+  height: 20px;
+}
+
+.delete-btn{
+  z-index: 99;
+  position: absolute;
+  border-radius: 100%;
+  padding: 4px;
+  background: rgba(255, 0, 0, 0.308);
+}
+.delete-btn:hover{
+  background: red;
+  border: black solid 2px;
+  cursor: pointer;
+}
+
 
 .content {
   display: grid;
@@ -164,6 +182,7 @@ input {
 }
 
 .card {
+  position: relative;
   display: grid;
   grid-row: auto;
   justify-self: center;

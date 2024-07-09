@@ -54,7 +54,7 @@ export default function EmployeeForm() {
                             <input type="text" name="contact" id="contact" onChange={(e) => {setEmergencyContact(e.target.value); updateFormdata()}} value={emergencyContact} />
                         </div>
                     </div>
-                    <button className="btn-primary" onClick={onDeleteConfirm}>delete</button>
+                    <button className="delete-btn" onClick={onDeleteConfirm}><img className="icon" src={"images/delete-icon.png"} alt="delete" /></button>
                     <button className="btn-primary" onClick={onSubmit}>Save</button>
                 </form>
             </div>
