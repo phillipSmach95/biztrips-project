@@ -6,8 +6,8 @@ export async function getProducts(category) {
       "Access-Control-Allow-Credentials":"true",
     },
     method: "GET",
-    body:null
   });
+  console.log(response.json);
   if (response.ok) return response.json();
   throw response;
 }
@@ -18,7 +18,6 @@ export async function getProduct(category, id) {
       "Access-Control-Allow-Credentials":"true",
     },
     method: "GET",
-    body:null
   });
   if (response.ok) return response.json();
   throw response;
