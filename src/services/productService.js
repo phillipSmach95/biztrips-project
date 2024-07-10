@@ -4,9 +4,9 @@ export async function getProducts(category) {
   const response = await fetch(baseUrl + category, {
     headers: {
       "Access-Control-Allow-Credentials":"true",
-      "Content-Type": "application/json",
     },
     method: "GET",
+    body:null
   });
   if (response.ok) return response.json();
   throw response;
@@ -16,9 +16,9 @@ export async function getProduct(category, id) {
   const response = await fetch(baseUrl + category + "/" + id, {
     headers: {
       "Access-Control-Allow-Credentials":"true",
-      "Content-Type": "application/json",
     },
     method: "GET",
+    body:null
   });
   if (response.ok) return response.json();
   throw response;
