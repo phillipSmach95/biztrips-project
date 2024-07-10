@@ -1,12 +1,7 @@
 // const baseUrl = process.env.REACT_APP_API_BASE_URL
 const baseUrl = "https://biztrips-project.vercel.app/";
 export async function getProducts(category) {
-  const response = await fetch(baseUrl + category, {
-    headers: {
-      "Access-Control-Allow-Credentials":"true",
-    },
-    method: "GET",
-  });
+  const response = await fetch(baseUrl + category);
   console.log(response);
   console.log("status Text: "+response.statusText)
   if (response.ok) return response.json();
@@ -15,12 +10,7 @@ export async function getProducts(category) {
 }
 
 export async function getProduct(category, id) {
-  const response = await fetch(baseUrl + category + "/" + id, {
-    headers: {
-      "Access-Control-Allow-Credentials":"true",
-    },
-    method: "GET",
-  });
+  const response = await fetch(baseUrl + category + "/" + id);
   if (response.ok) return response.json();
   throw response;
 }
