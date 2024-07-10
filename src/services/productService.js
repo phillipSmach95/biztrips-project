@@ -1,7 +1,8 @@
 //const baseUrl = process.env.REACT_APP_API_BASE_URL
-const baseUrl = "https://biztrips-project-6jtfgnudb-phillipsmachs-projects.vercel.app"
+const baseUrl =
+  "https://biztrips-project-6jtfgnudb-phillipsmachs-projects.vercel.app";
 export async function getProducts(category) {
-  const response = await fetch(baseUrl + "" + category ,{
+  const response = await fetch(baseUrl + "" + category, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -12,7 +13,7 @@ export async function getProducts(category) {
 }
 
 export async function getProduct(category, id) {
-  const response = await fetch(baseUrl + category + "/" + id ,{
+  const response = await fetch(baseUrl + category + "/" + id, {
     headers: {
       "Content-Type": "application/json",
     },
