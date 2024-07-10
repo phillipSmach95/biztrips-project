@@ -22,7 +22,7 @@
     "start-api": "json-server --port 3001 --watch db.json",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": " json-server --port 3000 --watch api/db.json react-scripts start ",
+    "start": " json-server --port 3001 --watch api/db.json react-scripts start ",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
