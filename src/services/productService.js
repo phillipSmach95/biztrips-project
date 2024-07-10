@@ -2,7 +2,7 @@
 const baseUrl =
   "https://biztrips-project.vercel.app/";
 export async function getProducts(category) {
-  const response = await fetch(baseUrl + "" + category, {
+  const response = await fetch(baseUrl + category, {
     headers: {
       "Access-Control-Allow-Credentials":true,
       "Content-Type": "application/json",
