@@ -1,5 +1,5 @@
 //const baseUrl = process.env.REACT_APP_API_BASE_URL
-const baseUrl = "https://biztrips-project.vercel.app/api/";
+const baseUrl = "https://biztrips-project.vercel.app/";
 export async function getProducts(category) {
   const response = await fetch(baseUrl + category, {
     headers: {
