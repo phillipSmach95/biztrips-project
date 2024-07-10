@@ -7,7 +7,7 @@ export async function getProducts(category) {
     },
     method: "GET",
   });
-  console.log("full response: "+response);
+  console.log(response);
   console.log("status Text: "+response.statusText)
   if (response.ok) return response.json();
   console.log("not Okey response"+ response);
