@@ -16,7 +16,8 @@ export default function MeetingForm() {
     event.preventDefault()
     if(window.confirm("are you sure you want to delete the employee")){
       deleteProduct("meetings",meetingId)
-      navigate("/meetings")
+      console.log(formData);
+      navigate("/allmeetings")
     }
   }
   const onSaveClick = (event) => {
@@ -28,7 +29,7 @@ export default function MeetingForm() {
     event.preventDefault()
     setFormData(updatedFormData);
     patchProduct("meetings", meetingId, updatedFormData)
-    navigate("/meetings")
+    navigate("/allmeetings")
   }
   useEffect(() => {
     getProduct("meetings", meetingId).then((res) => {

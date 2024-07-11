@@ -25,7 +25,8 @@ export default function NewTripForm() {
         event.preventDefault()
         setFormData(updatedFormData);
         postProduct("trips", updatedFormData)
-        navigate("/trips")
+        console.log(formData);
+        navigate("/alltrips")
 
     }
     const toIntArray = (stringDate, stringTime) => {

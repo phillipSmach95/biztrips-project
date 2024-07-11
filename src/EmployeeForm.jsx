@@ -16,7 +16,8 @@ export default function EmployeeForm() {
         event.preventDefault()
         if(window.confirm("are you sure you want to delete the employee")){
           deleteProduct("employees",employeeId)
-          navigate("/employees")
+          console.log(formData);
+          navigate("/allemployees")
         }
       }
     const onSubmit = (event) => {
@@ -27,7 +28,7 @@ export default function EmployeeForm() {
         event.preventDefault()
       setFormData(updatedFormData)
       patchProduct("employees",employeeId,updatedFormData)
-      navigate("/employees")
+      navigate("/allemployees")
     }
     useEffect(() => {
         getProduct("employees", employeeId).then((res) => {

@@ -21,7 +21,8 @@ export default function NewMeetingForm() {
     event.preventDefault()
     setFormData(updatedFormData)
     postProduct("meetings", updatedFormData)
-    navigate("/meetings")
+    console.log(formData);
+    navigate("/allmeetings")
   }
   useEffect(() => {
 

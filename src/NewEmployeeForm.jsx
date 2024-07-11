@@ -19,7 +19,7 @@ export default function NewEmployeeForm() {
         setFormData(updatedFormData)
         postProduct("employees", updatedFormData)
         console.log(formData);
-        navigate("/employees")
+        navigate("/allemployees")
     }
     return (
         <div className="content-wrapper">

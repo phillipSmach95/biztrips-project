@@ -21,14 +21,13 @@ export default function TripForm() {
   const onDeleteConfirm = (event) => {
     event.preventDefault()
     if (window.confirm("are you sure you want to delete the trip")) {
-      deleteProduct("trips", tripId).then(()=>navigate("/trips"))
+      deleteProduct("trips", tripId).then(()=>navigate("/alltrips"))
     }
   }
 
   const onSaveClick = (event) => {
     event.preventDefault();
 
-    // Update form data before saving
     const updatedFormData = {
       title,
       meetings,
@@ -40,10 +39,10 @@ export default function TripForm() {
 
     setFormData(updatedFormData);
 
-    // Make sure to call patchProduct after state update
     patchProduct("trips", tripId, updatedFormData).then((res) => {
       console.log(res);
-      navigate("/trips");
+      navigate("/alltrips");
+      console.log(formData);
     });
   };
   

@@ -79,11 +79,11 @@ export default function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<Trips />} />
-            <Route path="/trips" element={<Trips />} />
+            <Route path="/alltrips" element={<Trips />} />
             <Route path="/tripform/:tripId" element={<TripForm />} />
             <Route path="/newtripform" element={<NewTripForm />} />
-            <Route path="/employees" element={<Empoyees />} />
-            <Route path="/meetings" element={<Meetings />} />
+            <Route path="/allemployees" element={<Empoyees />} />
+            <Route path="/allmeetings" element={<Meetings />} />
 
             <Route path="/newmeetingform" element={<NewMeetingForm />} />
             <Route path="/meetingform/:meetingId" element={<MeetingForm />} />

@@ -16,19 +16,19 @@
     "react-router-dom": "^6.23.1",
     "react-scripts": "^5.0.1"
   },
-  "scripts": {
-    "start": "run-p start-app start-api",
-    "start-app": "cross-env REACT_APP_API_BASE_URL=http://localhost:3001/ react-scripts start",
-    "start-api": "json-server --port 3001 --watch api/db.json",
-    "start-deploy-api": "json-server --port 3000 --watch api/db.json",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start-deploy": "run-p start-react start-deploy-api ",
-    "start-react": "react-scripts start ",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
+"scripts": {
+  "start": "run-p start-app start-api",
+  "start-app": "cross-env REACT_APP_API_BASE_URL=http://localhost:3001/ react-scripts start",
+  "start-api": "json-server --port 3001 --watch api/db.json",
+  "deploy-gh": "npm run build && gh-pages -d build",
+  "deploy-vercel": "vercel --prod",
+  "deploy-vercel-app": "vercel --prod",
+  "deploy-vercel-api": "vercel --prod",
+  "start-react": "react-scripts start",
+  "build": "react-scripts build",
+  "test": "react-scripts test",
+  "eject": "react-scripts eject"
+},
   "eslintConfig": {
     "extends": "react-app"
   },
