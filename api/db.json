@@ -115,64 +115,9 @@
         8
       ],
       "id": 4
-    },
-    {
-      "title": "jdkaslfsa",
-      "meetings": [],
-      "description": "nfkdlsfnaslknfklsasn djsadasdahodaodhaodoadjal",
-      "startTrip": [
-        2024,
-        7,
-        18,
-        22,
-        22
-      ],
-      "endTrip": [
-        2024,
-        7,
-        25,
-        21,
-        22
-      ],
-      "paticipants": [
-        1,
-        3
-      ],
-      "id": 5
-    },
-    {
-      "title": "kfdlöaflö",
-      "meetings": [],
-      "description": "dsalkandklnkanf dskaölkdaslö dasökldasklö dsasödjaö ",
-      "startTrip": [
-        2024,
-        7,
-        10,
-        0,
-        null
-      ],
-      "endTrip": [
-        2024,
-        7,
-        26,
-        0,
-        null
-      ],
-      "paticipants": [
-        10,
-        5,
-        7
-      ],
-      "id": 6
     }
   ],
   "meetings": [
-    {
-      "id": 1,
-      "title": "One Conference uuu",
-      "description": "Key Note on One Conference",
-      "tripId": "21"
-    },
     {
       "id": 2,
       "title": "Zero Conference",
@@ -190,12 +135,6 @@
       "title": "One Conference",
       "description": "Key Note on One Conference",
       "tripId": 2
-    },
-    {
-      "id": 5,
-      "title": "One Conference",
-      "description": "Key Note on One Conference",
-      "tripId": 3
     }
   ],
   "employees": [

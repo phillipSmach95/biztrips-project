@@ -10,18 +10,17 @@ export default function NewMeetingForm() {
   const [tripId, setTripId] = useState("")
   const [formData, setFormData] = useState({})
   const navigate = useNavigate()
-  const updateFormdata = () => {
-    setFormData({
-      title: title,
-      description: description,
-      tripId: tripId,
-    });
-  };
+
   const { meetingId } = useParams();
   const handleSubmit = (event) => {
+    const updatedFormData = {
+      title,
+      description,
+      tripId,
+  };
     event.preventDefault()
-    updateFormdata()
-    postProduct("meetings", formData)
+    setFormData(updatedFormData)
+    postProduct("meetings", updatedFormData)
     navigate("/meetings")
   }
   useEffect(() => {
@@ -39,7 +38,7 @@ export default function NewMeetingForm() {
             <div className="form-label-input">
 
               <label htmlFor="">select Trip to add meeting</label>
-              <select name="tripId" id="tripId" onChange={(e) => { setTripId(e.target.value); updateFormdata(); }} value={tripId}>
+              <select name="tripId" id="tripId" onChange={(e) => { setTripId(e.target.value);  }} value={tripId}>
                 {trips.map((t) => {
                   return (
                     <option key={t.id} value={t.id}>{t.title}</option>
@@ -50,12 +49,12 @@ export default function NewMeetingForm() {
             <div className="form-label-input">
 
               <label htmlFor="titel">Titel</label>
-              <input type="text" name="titel" id="titel" onChange={(e) => { setTitle(e.target.value); updateFormdata(); }} value={title} />
+              <input type="text" name="titel" id="titel" onChange={(e) => { setTitle(e.target.value);  }} value={title} />
             </div>
             <div className="form-label-input">
 
               <label htmlFor="description">Description</label>
-              <input type="text" name="description" id="description" onChange={(e) => { setDescription(e.target.value); updateFormdata(); }} value={description} />
+              <input type="text" name="description" id="description" onChange={(e) => { setDescription(e.target.value);  }} value={description} />
             </div>
           </div>
           <button type="submit">Save</button>

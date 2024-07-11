@@ -30,7 +30,7 @@ export default function Trips() {
               <img className="trip-img" src={"images/items/" + t.id + ".jpg"} alt="name " />
             </div>
 
-            <h2>{t.title} {t.id}</h2>
+            <h2>{t.title}</h2>
 
 
             <div>

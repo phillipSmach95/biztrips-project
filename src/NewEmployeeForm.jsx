@@ -9,16 +9,15 @@ export default function NewEmployeeForm() {
     const [emergencyContact, setEmergencyContact] = useState("")
     const [formData, setFormData] = useState({})
     const navigate = useNavigate()
-    const updateFormdata = () => {
-        setFormData({
-            name: name,
-            emergencyContact: emergencyContact,
-        });
-    };
+    
     const onSubmit = (event) => {
-        updateFormdata()
+        const updatedFormData = {
+            name,
+            emergencyContact,
+        };
         event.preventDefault()
-        postProduct("employees", formData)
+        setFormData(updatedFormData)
+        postProduct("employees", updatedFormData)
         console.log(formData);
         navigate("/employees")
     }
@@ -31,11 +30,11 @@ export default function NewEmployeeForm() {
                     <div className="form-fields">
                         <div className="form-label-input">
                             <label htmlFor="name">name</label>
-                            <input type="text" name="name" id="name" onChange={(e) => {setName(e.target.value); updateFormdata();}} value={name} />
+                            <input type="text" name="name" id="name" onChange={(e) => {setName(e.target.value); }} value={name} />
                         </div>
                         <div className="form-label-input">
                             <label htmlFor="contact">emergency contact</label>
-                            <input type="text" name="contact" id="contact" onChange={(e) => {setEmergencyContact(e.target.value); updateFormdata();}} value={emergencyContact} />
+                            <input type="text" name="contact" id="contact" onChange={(e) => {setEmergencyContact(e.target.value); }} value={emergencyContact} />
                         </div>
                     </div>
                     <button className="btn-primary" onClick={onSubmit}>Save</button>
