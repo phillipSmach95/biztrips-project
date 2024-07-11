@@ -39,7 +39,7 @@ export default function EmployeeForm() {
     }, [employeeId])
     return (
         <div className="content-wrapper">
-            <h1>Employee Data</h1>
+            <h1>Edit Employee</h1>
             <div className="card">
                     <button className="delete-btn" onClick={onDeleteConfirm}><img className="icon" src={"../images/delete-icon.png"} alt="delete" /></button>
                 <form className="">

@@ -9,14 +9,15 @@ export default function Employees() {
     const [reload, setReload] = useState(false)
     const [loading, setLoading] = useState(false)
 const onDeleteIconClick = (id, category)=>{
-    deleteProduct(category,id)
-    setReload(true)
+    deleteProduct(category,id).then(()=>setReload(true))
+    
 }
     useEffect(() => {
         setLoading(true)
         getProducts("employees").then((res) => {
             setEmployees(res)
             setLoading(false)
+            setReload(false)
         });
     }, [reload]);
     return (<>

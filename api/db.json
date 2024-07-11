@@ -22,7 +22,8 @@
         1,
         3,
         5,
-        7
+        7,
+        2
       ],
       "meetings": [
         1,
@@ -163,69 +164,20 @@
         7
       ],
       "id": 6
-    },
-    {
-      "title": "dnsma,ndx",
-      "meetings": [],
-      "description": "dsnalndasdld da dankdlsand danlkdnsak dsasldnas sdsakdsa ",
-      "startTrip": [
-        2024,
-        7,
-        16,
-        0,
-        null
-      ],
-      "endTrip": [
-        2024,
-        7,
-        31,
-        0,
-        null
-      ],
-      "paticipants": [
-        3,
-        2,
-        7
-      ],
-      "id": 7
-    },
-    {
-      "title": "dnsadna",
-      "meetings": [],
-      "description": "daalddanlddal dasdasöms dnalsdnaln",
-      "startTrip": [
-        2024,
-        7,
-        9,
-        22,
-        22
-      ],
-      "endTrip": [
-        2024,
-        7,
-        18,
-        22,
-        22
-      ],
-      "paticipants": [
-        1,
-        3
-      ],
-      "id": 8
     }
   ],
   "meetings": [
     {
       "id": 1,
-      "title": "One Conference",
+      "title": "One Conference uuu",
       "description": "Key Note on One Conference",
-      "tripId": 1
+      "tripId": "21"
     },
     {
       "id": 2,
       "title": "Zero Conference",
       "description": "Workshop Zero on One Conference",
-      "tripId": 1
+      "tripId": "2"
     },
     {
       "id": 3,
@@ -244,18 +196,6 @@
       "title": "One Conference",
       "description": "Key Note on One Conference",
       "tripId": 3
-    },
-    {
-      "title": "titel ",
-      "description": "dsakldjalkdslkas dsaaksljdsakljd dsahdsslahdklsaDHSLAK A",
-      "tripId": "5",
-      "id": 6
-    },
-    {
-      "title": "fdlskjfs",
-      "description": "dsadjasdjksldfklsdnvjksdnkjvjksövkö fhdsjkf afdh ahfa",
-      "tripId": "7",
-      "id": 7
     }
   ],
   "employees": [

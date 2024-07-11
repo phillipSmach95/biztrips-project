@@ -8,15 +8,16 @@ export default function Meetings() {
   const [reload, setReload] = useState(false);
   const [loading, setLoading] = useState(false);
   const onDeleteIconClick = (id, category)=>{
-    deleteProduct(category,id)
-    setReload(true)
+    deleteProduct(category,id).then(()=> setReload(true))
+    
 }
   useEffect(() => {
     setLoading(true)
+    getProducts("trips").then((res) => {setTrips(res)})
     getProducts("meetings").then((res) => {
       setMeetings(res);
-      getProducts("trips").then((res) => {setTrips(res)})
       setLoading(false)
+      setReload(false)
     });
   }, [reload]);
 

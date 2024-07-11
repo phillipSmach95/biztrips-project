@@ -39,9 +39,10 @@ export default function NewTripForm() {
         getProducts("employees").then((res) => setEmployees(res))
     }, [])
     return (
-        <>
-            <h1>Edit Trip </h1>
+        <div className="content-wrapper">
+            <h1>Add Trip </h1>
             <div className=" card">
+
                 <form  >
                     <div className="form-fields">
                         <div className="grid-2 ">
@@ -98,6 +99,6 @@ export default function NewTripForm() {
                     <button className="btn-primary" onClick={onSaveClick}>Save</button>
                 </form>
             </div>
-        </>
+        </div>
     )
 }

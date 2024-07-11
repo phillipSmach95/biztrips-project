@@ -29,8 +29,8 @@ export default function NewMeetingForm() {
     getProducts("trips").then((res) => setTrips(res))
   }, [meetingId])
   return (
-    <>
-      <h1>Meeting Data</h1>
+    <div className="content-wrapper">
+      <h1>Add Meeting</h1>
       <div className="card">
 
         <form onSubmit={handleSubmit}>
@@ -39,7 +39,7 @@ export default function NewMeetingForm() {
             <div className="form-label-input">
 
               <label htmlFor="">select Trip to add meeting</label>
-              <select name="" id="" onChange={(e) => { setTripId(e.target.value); updateFormdata(); }} value={tripId}>
+              <select name="tripId" id="tripId" onChange={(e) => { setTripId(e.target.value); updateFormdata(); }} value={tripId}>
                 {trips.map((t) => {
                   return (
                     <option key={t.id} value={t.id}>{t.title}</option>
@@ -63,6 +63,6 @@ export default function NewMeetingForm() {
         </form>
 
       </div>
-    </>
+    </div>
   );
 }
