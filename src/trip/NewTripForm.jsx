@@ -1,5 +1,5 @@
 import { useEffect, useState, } from "react";
-import { getProducts, postProduct } from "./services/productService";
+import { getProducts, postProduct } from "../services/productService";
 import { useNavigate } from "react-router-dom";
 
 export default function NewTripForm() {
