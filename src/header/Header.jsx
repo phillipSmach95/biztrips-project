@@ -1,9 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { AppBar } from "@mui/material";
 
 export default function Header() {
   return (
-    <header>
+
+      <AppBar position="static" sx={{ backgroundColor: "#1976d2", padding: "10px" }}>
+
       <nav>
         <ul>
           <li><NavLink to={"/"}><img width="150px" alt="Business Trips" src="/images/logo.png" /></NavLink></li>
@@ -18,6 +21,7 @@ export default function Header() {
               </li>
         </ul>
       </nav>
-    </header>
+      </AppBar>
+
   );
 }

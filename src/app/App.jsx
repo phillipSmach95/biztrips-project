@@ -11,6 +11,7 @@ import EmployeeForm from "../employee/EmployeeForm";
 import NewTripForm from "../trip/NewTripForm";
 import NewMeetingForm from "../meeting/NewMeetingForm";
 import NewEmployeeForm from "../employee/NewEmployeeForm";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 // const trips = [
 //   {
@@ -68,9 +69,14 @@ import NewEmployeeForm from "../employee/NewEmployeeForm";
 // ];
 
 export default function App() {
-
+const theme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
   return (
     <>
+    <ThemeProvider theme={theme}>
 <div className="page-wrapper">
 
       <Header />
@@ -95,6 +101,7 @@ export default function App() {
 
       <Footer />
 </div>
+    </ThemeProvider>
     </>
   );
 }
