@@ -1,8 +1,8 @@
-import "./App"
+import "../app/App"
 
 import { useEffect, useState } from "react"
-import { deleteProduct, getProducts } from "./services/productService"
-import Spinner from "./Spinner"
+import { deleteProduct, getProducts } from "../services/productService"
+import Spinner from "../spinner/Spinner"
 export default function Employees() {
     const [employees, setEmployees] = useState([])
     

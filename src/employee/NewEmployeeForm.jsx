@@ -1,7 +1,7 @@
 import { useState } from "react"
-import "./App"
+import "../app/App"
 
-import { postProduct } from "./services/productService"
+import { postProduct } from "../services/productService"
 import { useNavigate } from "react-router-dom"
 
 export default function NewEmployeeForm() {

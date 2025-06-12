@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Spinner from "./Spinner";
-import { deleteProduct, getProducts } from "./services/productService";
+import Spinner from "../spinner/Spinner";
+import { deleteProduct, getProducts } from "../services/productService";
 
 export default function Meetings() {
   const [meetings, setMeetings] = useState([]);

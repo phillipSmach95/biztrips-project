@@ -1,8 +1,8 @@
 
-import "./App.css";
+import "../app/App.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { deleteProduct, getProduct, getProducts, patchProduct } from "./services/productService";
+import { deleteProduct, getProduct, getProducts, patchProduct } from "../services/productService";
 
 export default function TripForm() {
 

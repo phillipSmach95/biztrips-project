@@ -1,16 +1,16 @@
 import "./App.css";
-import Footer from "./Footer";
-import Header from "./Header";
+import Footer from "../footer/Footer";
+import Header from "../header/Header";
 import { Route, Routes } from "react-router-dom";
-import Empoyees from "./Employees";
-import Meetings from "./Meetings";
-import Trips from "./Trips";
-import TripForm from "./TripForm";
-import MeetingForm from "./MeetingForm";
-import EmployeeForm from "./EmployeeForm";
-import NewTripForm from "./NewTripForm";
-import NewMeetingForm from "./NewMeetingForm";
-import NewEmployeeForm from "./NewEmployeeForm";
+import Empoyees from "../employee/Employees";
+import Meetings from "../meeting/Meetings";
+import Trips from "../trip/Trips";
+import TripForm from "../trip/TripForm";
+import MeetingForm from "../meeting/MeetingForm";
+import EmployeeForm from "../employee/EmployeeForm";
+import NewTripForm from "../trip/NewTripForm";
+import NewMeetingForm from "../meeting/NewMeetingForm";
+import NewEmployeeForm from "../employee/NewEmployeeForm";
 
 // const trips = [
 //   {

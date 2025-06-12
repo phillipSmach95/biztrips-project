@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import "./App"
+import "../app/App"
 
 import { useEffect, useState } from "react";
-import { getProducts, postProduct } from "./services/productService";
+import { getProducts, postProduct } from "../services/productService";
 export default function NewMeetingForm() {
   const [description, setDescription] = useState("")
   const [title, setTitle] = useState("")

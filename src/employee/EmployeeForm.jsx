@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import "./App"
+import "../app/App"
 
-import { deleteProduct, getProduct, patchProduct } from "./services/productService"
+import { deleteProduct, getProduct, patchProduct } from "../services/productService"
 import { useNavigate, useParams } from "react-router-dom"
 
 export default function EmployeeForm() {
