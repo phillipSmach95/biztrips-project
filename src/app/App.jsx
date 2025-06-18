@@ -1,5 +1,5 @@
-import "./App.css";
-import Footer from "../footer/Footer";
+
+
 import Header from "../header/Header";
 import { Route, Routes } from "react-router-dom";
 import Empoyees from "../employee/Employees";
@@ -11,7 +11,7 @@ import EmployeeForm from "../employee/EmployeeForm";
 import NewTripForm from "../trip/NewTripForm";
 import NewMeetingForm from "../meeting/NewMeetingForm";
 import NewEmployeeForm from "../employee/NewEmployeeForm";
-import { ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 
 // const trips = [
 //   {
@@ -71,18 +71,17 @@ import { ThemeProvider, createTheme } from "@mui/material";
 export default function App() {
 const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: 'dark',
   },
 });
   return (
     <>
     <ThemeProvider theme={theme}>
-<div className="page-wrapper">
+      <CssBaseline />
+  
+        <Header />
 
-      <Header />
-
-      <section className="content-wrapper">
-        <div className="content">
+     
           <Routes>
             <Route path="/" element={<Trips />} />
             <Route path="/trips" element={<Trips />} />
@@ -96,11 +95,10 @@ const theme = createTheme({
             <Route path="/employeeform/:employeeId" element={<EmployeeForm />} />
             <Route path="/newemployeeform" element={<NewEmployeeForm />} />
           </Routes>
-        </div>
-      </section>
+   
 
-      <Footer />
-</div>
+
+
     </ThemeProvider>
     </>
   );
