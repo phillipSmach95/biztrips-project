@@ -11,8 +11,6 @@ import NewMeetingForm from "../meeting/NewMeetingForm";
 import NewEmployeeForm from "../employee/NewEmployeeForm";
 import { ThemeProvider, createTheme, CssBaseline, Container } from "@mui/material";
 
-
-
 export default function App() {
 const theme = createTheme({
   palette: {
