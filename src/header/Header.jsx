@@ -1,6 +1,6 @@
 
 import { NavLink } from "react-router-dom";
-import { AppBar, Toolbar, Button, Typography, } from "@mui/material";
+import { AppBar, Toolbar, Button, Typography, Link } from "@mui/material";
 
 export default function Header() {
   return (
@@ -10,7 +10,7 @@ export default function Header() {
         <Typography  >
           
           {/* Logo Button */}
-          <Button
+          <Link
             component={NavLink}
             to={"/"}
           >
@@ -19,41 +19,41 @@ export default function Header() {
               alt="Logo"
               style={{ width: "fit-content", height: "50px", marginRight: "10px" }}
             />
-          </Button>
+          </Link>
 
         </Typography>
        
 
-          <Button
+          <Link
             component={NavLink}
             to={"/trips"}
 
           >
             Trips
-          </Button>
+          </Link>
 
        
-          <Button
+          <Link
             component={NavLink}
             to={"/newtripform"}
           >
             New Trip
-          </Button>
+          </Link>
 
 
-          <Button
+          <Link
             component={NavLink}
             to={"/meetings"}
           >
             Meetings
-          </Button>
+          </Link>
       
-          <Button
+          <Link
             component={NavLink}
             to={"/employees"}
           >
             Employees
-          </Button>
+          </Link>
       
       </Toolbar>
     </AppBar >
