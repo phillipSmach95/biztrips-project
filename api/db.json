@@ -115,6 +115,30 @@
         8
       ],
       "id": 4
+    },
+    {
+      "title": "Las Vegas",
+      "description": "Las Vegas is very beautiful at night!",
+      "startTrip": [
+        2025,
+        6,
+        19,
+        14,
+        35
+      ],
+      "endTrip": [
+        2025,
+        6,
+        26,
+        14,
+        35
+      ],
+      "participants": [
+        2,
+        4
+      ],
+      "id": 5,
+      "meetings": []
     }
   ],
   "meetings": [
