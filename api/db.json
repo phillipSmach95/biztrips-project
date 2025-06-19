@@ -115,6 +115,29 @@
         8
       ],
       "id": 4
+    },
+    {
+      "title": "new",
+      "description": "dsfsfdsagsdaf",
+      "startTrip": [
+        2025,
+        6,
+        19,
+        0,
+        null
+      ],
+      "endTrip": [
+        2025,
+        6,
+        25,
+        0,
+        null
+      ],
+      "paticipants": [
+        2,
+        3
+      ],
+      "id": 5
     }
   ],
   "meetings": [
