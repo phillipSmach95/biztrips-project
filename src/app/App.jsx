@@ -26,10 +26,9 @@ const theme = createTheme({
       light: "#6a7ffa",
       dark: "#2e47a8",
       contrastText: "#ffffff",
-    },
-    background: {
-      default: "#0a0a1a", // very dark blue
-      paper: "#1a1a2e", // dark blue-gray
+    },    background: {
+      default: "#1a1a2e", // lighter dark blue
+      paper: "#242447", // lighter dark blue-gray
     },
     text: {
       primary: "#ffffff",
@@ -113,10 +112,9 @@ const theme = createTheme({
       },
     },
     MuiCard: {
-      styleOverrides: {
-        root: {
+      styleOverrides: {        root: {
           borderRadius: 16,
-          background: "linear-gradient(145deg, #1a1a2e 0%, #16213e 100%)",
+          background: "linear-gradient(145deg, #242447 0%, #1e2a5e 100%)",
           boxShadow: "0 8px 32px rgba(25, 25, 112, 0.2)",
           border: "1px solid rgba(65, 105, 225, 0.1)",
           "&:hover": {
@@ -126,18 +124,16 @@ const theme = createTheme({
       },
     },
     MuiPaper: {
-      styleOverrides: {
-        root: {
+      styleOverrides: {        root: {
           borderRadius: 12,
-          background: "linear-gradient(145deg, #1a1a2e 0%, #16213e 100%)",
+          background: "linear-gradient(145deg, #242447 0%, #1e2a5e 100%)",
           border: "1px solid rgba(65, 105, 225, 0.1)",
         },
       },
     },
     MuiContainer: {
-      styleOverrides: {
-        root: {
-          background: "linear-gradient(180deg, rgba(26, 26, 46, 0.6) 0%, rgba(16, 33, 62, 0.6) 100%)",
+      styleOverrides: {        root: {
+          background: "linear-gradient(180deg, rgba(36, 36, 71, 0.6) 0%, rgba(30, 42, 94, 0.6) 100%)",
           backdropFilter: "blur(10px)",
           borderRadius: 16,
           border: "1px solid rgba(65, 105, 225, 0.1)",
@@ -147,10 +143,9 @@ const theme = createTheme({
     },
     MuiTextField: {
       styleOverrides: {
-        root: {
-          "& .MuiOutlinedInput-root": {
+        root: {          "& .MuiOutlinedInput-root": {
             borderRadius: 8,
-            backgroundColor: "rgba(26, 26, 46, 0.5)",
+            backgroundColor: "rgba(36, 36, 71, 0.5)",
             "& fieldset": {
               borderColor: "rgba(65, 105, 225, 0.3)",
             },
@@ -185,7 +180,7 @@ export default function App() {
 
         <Header />
 
-        <Container maxWidth="xl" sx={{ mt: 4 }}>
+        <Container maxWidth={false} sx={{ mt: 4, px: 3 }}>
           <Routes>
             <Route path="/" element={<Trips />} />
             <Route path="/trips" element={<Trips />} />

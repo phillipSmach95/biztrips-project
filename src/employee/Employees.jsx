@@ -10,8 +10,7 @@ import {
   Box,
   IconButton,
   Avatar,
-  Chip,
-  Fab
+  Chip
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
@@ -57,53 +56,33 @@ export default function Employees() {
   }, [reload]);
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
-        <PeopleIcon sx={{ fontSize: 40, mr: 2, color: 'primary.main' }} />
-        <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold' }}>
-          Employees
-        </Typography>
+    <Box sx={{ p: 3 }}>      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <PeopleIcon sx={{ fontSize: 40, mr: 2, color: 'primary.main' }} />
+          <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold' }}>
+            Employees
+          </Typography>
+        </Box>
+        <Button
+          component={Link}
+          to="/newemployeeform"
+          variant="contained"
+          startIcon={<AddIcon />}
+          sx={{
+            px: 3,
+            py: 1.5,
+            fontWeight: 'bold',
+          }}
+        >
+          Add Employee
+        </Button>
       </Box>
 
       {loading && (
         <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
           <Spinner />
         </Box>
-      )}
-
-      <Grid container spacing={3}>
-        {/* Add New Employee Card */}
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Card
-            component={Link}
-            to="/newemployeeform"
-            sx={{
-              height: 280,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              textDecoration: 'none',
-              border: '2px dashed',
-              borderColor: 'primary.main',
-              backgroundColor: 'rgba(65, 105, 225, 0.05)',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                backgroundColor: 'rgba(65, 105, 225, 0.1)',
-                transform: 'translateY(-4px)',
-                boxShadow: 6,
-              },
-            }}
-          >
-            <Box sx={{ textAlign: 'center' }}>
-              <AddIcon sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
-              <Typography variant="h6" color="primary.main" sx={{ fontWeight: 'bold' }}>
-                Add New Employee
-              </Typography>
-            </Box>
-          </Card>
-        </Grid>
-
+      )}      <Grid container spacing={3}>
         {/* Employee Cards */}
         {employees.map((employee) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={employee.id}>
@@ -210,25 +189,8 @@ export default function Employees() {
                 </Box>
               </CardContent>
             </Card>
-          </Grid>
-        ))}
+          </Grid>        ))}
       </Grid>
-
-      {/* Floating Action Button */}
-      <Fab
-        color="primary"
-        aria-label="add employee"
-        component={Link}
-        to="/newemployeeform"
-        sx={{
-          position: 'fixed',
-          bottom: 24,
-          right: 24,
-          zIndex: 1000,
-        }}
-      >
-        <AddIcon />
-      </Fab>
     </Box>
   );
 }

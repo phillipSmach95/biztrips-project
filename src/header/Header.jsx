@@ -21,21 +21,15 @@ import {
 export default function Header() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
   const navItems = [
     { label: 'Trips', path: '/trips', icon: <FlightIcon /> },
     { label: 'Meetings', path: '/meetings', icon: <MeetingIcon /> },
     { label: 'Employees', path: '/employees', icon: <PeopleIcon /> },
   ];
 
-  const actionItems = [
-    { label: 'New Trip', path: '/newtripform', icon: <AddIcon /> },
-  ];
-
   return (
     <AppBar position="static" elevation={0}>
-      <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, md: 4 } }}>
-        {/* Logo Section */}
+      <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, md: 4 } }}>        {/* Logo Section */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton
             component={NavLink}
@@ -58,24 +52,11 @@ export default function Header() {
               }}
             />
           </IconButton>
-          
-          <Typography 
-            variant="h6" 
-            component="div" 
-            sx={{ 
-              fontWeight: 'bold',
-              letterSpacing: '0.5px',
-              display: { xs: 'none', sm: 'block' }
-            }}
-          >
-            BizTrips
-          </Typography>
         </Box>
 
         {/* Navigation Items */}
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {/* Main Navigation */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>          {/* Main Navigation */}
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {navItems.map((item) => (
               <Button
                 key={item.path}
@@ -106,40 +87,9 @@ export default function Header() {
             ))}
           </Box>
 
-          {/* Action Buttons */}
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {actionItems.map((item) => (
-              <Button
-                key={item.path}
-                component={NavLink}
-                to={item.path}
-                variant="contained"
-                startIcon={item.icon}
-                sx={{
-                  ml: 1,
-                  backgroundColor: 'secondary.main',
-                  color: 'white',
-                  textTransform: 'none',
-                  fontWeight: 600,
-                  borderRadius: 2,
-                  px: 3,
-                  py: 1,
-                  boxShadow: '0 4px 12px rgba(65, 105, 225, 0.3)',
-                  '&:hover': {
-                    backgroundColor: 'secondary.dark',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 6px 16px rgba(65, 105, 225, 0.4)',
-                  },
-                }}
-              >
-                {isMobile ? null : item.label}
-              </Button>
-            ))}
-          </Box>
-
           {/* Mobile Menu (simplified for now) */}
           {isMobile && (
-            <Box sx={{ display: { xs: 'flex', md: 'none' }, ml: 1 }}>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
               {navItems.map((item) => (
                 <IconButton
                   key={item.path}
