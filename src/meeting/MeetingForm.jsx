@@ -1,76 +1,216 @@
 import { useParams, useNavigate } from "react-router-dom";
-import "../app/App"
-
 import { useEffect, useState } from "react";
-import { getProduct, getProducts, deleteProduct, patchProduct} from "../services/productService";
-export default function MeetingForm() {
-  const [description, setDescription] = useState("")
-  const [title, setTitle] = useState("")
-  const [trips, setTrips] = useState([])
-  const [tripId, setTripId] = useState("")
-  const [formData, setFormData] = useState({})
-  const { meetingId } = useParams();
-  const navigate = useNavigate()
+import { getProduct, getProducts, deleteProduct, patchProduct } from "../services/productService";
+import {
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Container,
+  Paper,
+  Divider,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from "@mui/material";
+import SaveIcon from "@mui/icons-material/Save";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import EditIcon from "@mui/icons-material/Edit";
 
-  const onDeleteConfirm = (event)=>{
-    event.preventDefault()
-    if(window.confirm("are you sure you want to delete the employee")){
-      deleteProduct("meetings",meetingId)
-      navigate("/meetings")
-    }
-  }
+export default function MeetingForm() {
+  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
+  const [trips, setTrips] = useState([]);
+  const [tripId, setTripId] = useState("");
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const { meetingId } = useParams();
+  const navigate = useNavigate();
+
+  const onDeleteConfirm = () => {
+    deleteProduct("meetings", meetingId);
+    navigate("/meetings");
+    setDeleteDialogOpen(false);
+  };
+
   const onSaveClick = (event) => {
+    event.preventDefault();
     const updatedFormData = {
       title,
       description,
-      tripId
+      tripId: tripId.toString()
     };
-    event.preventDefault()
-    setFormData(updatedFormData);
-    patchProduct("meetings", meetingId, updatedFormData)
-    navigate("/meetings")
-  }
+    patchProduct("meetings", meetingId, updatedFormData);
+    navigate("/meetings");
+  };
+
   useEffect(() => {
     getProduct("meetings", meetingId).then((res) => {
-      setTitle(res.title)
-      setDescription(res.description)
-      setTripId(res.tripId+1)
-    })
-    getProducts("trips").then((res) => setTrips(res))
-  }, [meetingId])
+      setTitle(res.title);
+      setDescription(res.description);
+      setTripId(res.tripId);
+    });
+    getProducts("trips").then((res) => setTrips(res));
+  }, [meetingId]);
+
   return (
-    <div className="content-wrapper">
-      <h1>Edit Meeting</h1>
-      <div className="card">
-      <button className="delete-btn" onClick={onDeleteConfirm}><img className="icon" src={"../images/delete-icon.png"} alt="delete" /></button>
-        <form >
-          <div className="form-fields">
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      <Paper elevation={0} sx={{ p: 4, borderRadius: 3 }}>
+        {/* Header */}
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Button
+              startIcon={<ArrowBackIcon />}
+              onClick={() => navigate("/meetings")}
+              sx={{ mr: 2 }}
+              variant="outlined"
+            >
+              Back
+            </Button>
+            <EditIcon sx={{ fontSize: 32, mr: 2, color: 'primary.main' }} />
+            <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
+              Edit Meeting
+            </Typography>
+          </Box>
+          
+          <Button
+            variant="outlined"
+            color="error"
+            startIcon={<DeleteIcon />}
+            onClick={() => setDeleteDialogOpen(true)}
+            sx={{ 
+              borderColor: 'error.main',
+              '&:hover': {
+                backgroundColor: 'error.main',
+                color: 'white',
+              }
+            }}
+          >
+            Delete
+          </Button>
+        </Box>
 
-            <div className="form-label-input">
+        <Divider sx={{ mb: 4 }} />
 
-              <label htmlFor="trip">select Trip to add meeting</label>
-              <select name="trip" id="trip" onChange={(e) => setTripId(e.target.value)} value={tripId}>
-                {trips.map((t) => {
-                  return (<option onSelect={()=>setTripId(t.id)} key={t.id} value={t.id}>{t.title}</option>)
-                })}
-              </select>
-            </div>
-            <div className="form-label-input">
+        {/* Form */}
+        <Card elevation={2}>
+          <CardContent sx={{ p: 4 }}>
+            <form onSubmit={onSaveClick}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                {/* Trip Selection */}
+                <FormControl fullWidth required>
+                  <InputLabel id="trip-select-label">Select Trip</InputLabel>
+                  <Select
+                    labelId="trip-select-label"
+                    id="trip"
+                    value={tripId}
+                    label="Select Trip"
+                    onChange={(e) => setTripId(e.target.value)}
+                  >
+                    {trips.map((trip) => (
+                      <MenuItem key={trip.id} value={trip.id}>
+                        {trip.title}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
 
-              <label htmlFor="titel">Titel</label>
-              <input type="text" name="titel" id="titel" onChange={(e) => setTitle(e.target.value)} value={title} />
-            </div>
-            <div className="form-label-input">
+                {/* Meeting Title */}
+                <TextField
+                  fullWidth
+                  required
+                  id="title"
+                  label="Meeting Title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  variant="outlined"
+                  placeholder="Enter meeting title"
+                />
 
-              <label htmlFor="description">Description</label>
-              <input type="text" name="description" id="description" onChange={(e) => setDescription(e.target.value)} value={description} />
-            </div>
-          </div>
-          <button onClick={onSaveClick}>Save</button>
+                {/* Meeting Description */}
+                <TextField
+                  fullWidth
+                  required
+                  id="description"
+                  label="Description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  variant="outlined"
+                  multiline
+                  rows={4}
+                  placeholder="Enter meeting description"
+                />
 
-        </form>
+                {/* Submit Button */}
+                <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end', mt: 2 }}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => navigate("/meetings")}
+                    sx={{ px: 4 }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    startIcon={<SaveIcon />}
+                    sx={{
+                      px: 4,
+                      py: 1.5,
+                      fontWeight: 'bold',
+                    }}
+                    disabled={!title || !description || !tripId}
+                  >
+                    Save Changes
+                  </Button>
+                </Box>
+              </Box>
+            </form>
+          </CardContent>
+        </Card>
+      </Paper>
 
-      </div>
-    </div>
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        aria-labelledby="delete-dialog-title"
+        aria-describedby="delete-dialog-description"
+      >
+        <DialogTitle id="delete-dialog-title" sx={{ color: 'error.main' }}>
+          Delete Meeting
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="delete-dialog-description">
+            Are you sure you want to delete this meeting? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ p: 3 }}>
+          <Button 
+            onClick={() => setDeleteDialogOpen(false)}
+            variant="outlined"
+          >
+            Cancel
+          </Button>
+          <Button 
+            onClick={onDeleteConfirm} 
+            variant="contained"
+            color="error"
+            startIcon={<DeleteIcon />}
+            autoFocus
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Container>
   );
 }

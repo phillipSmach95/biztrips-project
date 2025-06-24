@@ -9,6 +9,7 @@ import EmployeeForm from "../employee/EmployeeForm";
 import NewTripForm from "../trip/NewTripForm";
 import NewMeetingForm from "../meeting/NewMeetingForm";
 import NewEmployeeForm from "../employee/NewEmployeeForm";
+import NotFound from "../components/NotFound";
 import { ThemeProvider, createTheme, CssBaseline, Container } from "@mui/material";
 
 const theme = createTheme({
@@ -192,11 +193,11 @@ export default function App() {
             <Route path="/newtripform" element={<NewTripForm />} />
             <Route path="/employees" element={<Empoyees />} />
             <Route path="/meetings" element={<Meetings />} />
-
             <Route path="/newmeetingform" element={<NewMeetingForm />} />
             <Route path="/meetingform/:meetingId" element={<MeetingForm />} />
             <Route path="/employeeform/:employeeId" element={<EmployeeForm />} />
             <Route path="/newemployeeform" element={<NewEmployeeForm />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Container>
       </ThemeProvider>
