@@ -4,18 +4,15 @@ import {
   AppBar, 
   Toolbar, 
   Button, 
-  Typography, 
   Box, 
   IconButton,
   useTheme,
   useMediaQuery
 } from "@mui/material";
 import { 
-  Business as BusinessIcon,
   Flight as FlightIcon,
   MeetingRoom as MeetingIcon,
   People as PeopleIcon,
-  Add as AddIcon
 } from "@mui/icons-material";
 
 export default function Header() {

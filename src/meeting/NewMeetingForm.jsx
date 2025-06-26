@@ -25,7 +25,6 @@ export default function NewMeetingForm() {
   const [title, setTitle] = useState("")
   const [trips, setTrips] = useState([])
   const [tripId, setTripId] = useState("")
-  const [formData, setFormData] = useState({})
   const [errors, setErrors] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)

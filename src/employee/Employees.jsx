@@ -10,12 +10,10 @@ import {
   Box,
   IconButton,
   Avatar,
-  Chip
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import PeopleIcon from "@mui/icons-material/People";
-import PersonIcon from "@mui/icons-material/Person";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { Link } from "react-router-dom";
 
