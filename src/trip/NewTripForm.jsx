@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { postTrip } from "../services/tripService";
+import { addTrip } from "../services/tripService";
 import { getUsers } from "../services/userService";
 import { useNavigate } from "react-router-dom";
 import {
@@ -79,7 +79,7 @@ export default function NewTripForm() {
         
         setIsSubmitting(true)
         try {
-            await postTrip(updatedFormData)
+            await addTrip(updatedFormData)
             navigate("/trips")
         } catch (error) {
             setErrors({ submit: "Failed to save trip. Please try again." })
@@ -107,7 +107,10 @@ export default function NewTripForm() {
         setIsLoading(true)
         getUsers()
             .then((res) => setEmployees(res))
-            .catch((error) => setErrors({ employees: "Failed to load employees" }))
+            .catch((error) => {
+                setErrors({ employees: "Failed to load employees" })
+                console.error("Error loading employees:", error)
+            })
             .finally(() => setIsLoading(false))
     }, [])
 
@@ -293,8 +296,8 @@ export default function NewTripForm() {
                                                                     color="primary"
                                                                 />
                                                             }
-                                                            label={employee.name}
-                                                            sx={{ 
+                                                            label={`${employee.firstName} ${employee.lastName}`}
+                                                            sx={{
                                                                 py: 0.5,
                                                                 '&:hover': {
                                                                     bgcolor: 'action.hover',

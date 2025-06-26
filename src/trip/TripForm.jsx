@@ -380,8 +380,8 @@ export default function TripForm() {
                                                                 color="primary"
                                                             />
                                                         }
-                                                        label={employee.name}
-                                                        sx={{ 
+                                                        label={`${employee.firstName} ${employee.lastName}`}
+                                                        sx={{
                                                             py: 0.5,
                                                             '&:hover': {
                                                                 bgcolor: 'action.hover',

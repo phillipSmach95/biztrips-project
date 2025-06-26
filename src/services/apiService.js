@@ -1,6 +1,6 @@
 import { redirect } from 'react-router-dom';
 
-const baseUrl = process.env.BACKEND_API_BASE_URL
+const baseUrl = process.env.REACT_APP_BACKEND_API_BASE_URL;
 
 export async function requestApi(endpoint, { method = 'GET', headers = {}, body = null })  {
     const url = `${baseUrl}${endpoint}`;
@@ -17,7 +17,9 @@ export async function requestApi(endpoint, { method = 'GET', headers = {}, body 
             ...options.headers
         };
     }
-    
+
+    console.log(`Making ${method} request to ${url} with body:`, body);
+
     const response = await fetch(url, options);
     
     if (!response.ok) {
@@ -43,3 +45,7 @@ export async function requestApi(endpoint, { method = 'GET', headers = {}, body 
     
     return response.json();
 }
+
+export default {
+    requestApi
+};

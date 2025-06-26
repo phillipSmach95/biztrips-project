@@ -1,7 +1,9 @@
 import apiService from "./apiService";
 
 export async function getTrips() {
-    const response = await apiService.requestApi('/trips');
+    const response = await apiService.requestApi('/trips', {
+        method: 'GET'
+    });
     return response;
 }
 
@@ -14,7 +16,9 @@ export async function addTrip(tripData) {
 }
 
 export async function getTrip(tripId) {
-    const response = await apiService.requestApi(`/trips/${tripId}`);
+    const response = await apiService.requestApi(`/trips/${tripId}`, {
+        method: 'GET'
+    });
     return response;
 }
 
@@ -32,3 +36,11 @@ export async function deleteTrip(tripId) {
     });
     return response;
 }
+
+export default {
+    getTrips,
+    addTrip,
+    getTrip,
+    updateTrip,
+    deleteTrip
+};

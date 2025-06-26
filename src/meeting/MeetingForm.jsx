@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getMeetings } from "../services/meetingService";
+import { getMeetings, deleteMeeting, updateMeeting } from "../services/meetingService";
 import {
   Box,
   Card,
@@ -72,7 +72,7 @@ export default function MeetingForm() {
     
     setIsSubmitting(true)
     try {
-      await patchMeeting(meetingId, updatedFormData)
+      await updateMeeting(meetingId, updatedFormData)
       navigate("/meetings")
     } catch (error) {
       setErrors({ submit: "Failed to update meeting. Please try again." })

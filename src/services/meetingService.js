@@ -58,3 +58,11 @@ export async function deleteMeeting(id) {
     await tripService.updateTrip(meetings[index].tripId, { meetings });
     return;
 }
+
+export default {
+    getMeetings,
+    getMeeting,
+    addMeeting,
+    updateMeeting,
+    deleteMeeting
+}

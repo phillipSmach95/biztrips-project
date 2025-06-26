@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getTrips } from "../services/tripService";
+import { addMeeting } from "../services/meetingService";
 import {
   Box,
   Card,
@@ -57,7 +58,7 @@ export default function NewMeetingForm() {
     
     setIsSubmitting(true)
     try {
-      await postMeeting(updatedFormData)
+      await addMeeting(updatedFormData)
       navigate("/meetings")
     } catch (error) {
       setErrors({ submit: "Failed to create meeting. Please try again." })
