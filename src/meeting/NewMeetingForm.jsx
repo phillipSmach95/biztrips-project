@@ -18,7 +18,6 @@ import {
   Alert,
   CircularProgress,
   Divider,
-  Paper
 } from '@mui/material';
 import { Save as SaveIcon } from '@mui/icons-material';
 export default function NewMeetingForm() {
