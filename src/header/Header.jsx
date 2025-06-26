@@ -1,61 +1,116 @@
 
 import { NavLink } from "react-router-dom";
-import { AppBar, Toolbar, Button, Typography, } from "@mui/material";
+import { 
+  AppBar, 
+  Toolbar, 
+  Button, 
+  Box, 
+  IconButton,
+  useTheme,
+  useMediaQuery
+} from "@mui/material";
+import { 
+  Flight as FlightIcon,
+  MeetingRoom as MeetingIcon,
+  People as PeopleIcon,
+} from "@mui/icons-material";
 
 export default function Header() {
-  return (
-    <AppBar position="static">
-      <Toolbar>
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navItems = [
+    { label: 'Trips', path: '/trips', icon: <FlightIcon /> },
+    { label: 'Meetings', path: '/meetings', icon: <MeetingIcon /> },
+    { label: 'Employees', path: '/employees', icon: <PeopleIcon /> },
+  ];
 
-        <Typography  >
-          
-          {/* Logo Button */}
-          <Button
+  return (
+    <AppBar position="static" elevation={0}>
+      <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, md: 4 } }}>        {/* Logo Section */}
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <IconButton
             component={NavLink}
-            to={"/"}
+            to="/"
+            sx={{ 
+              p: 1, 
+              mr: 2,
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              }
+            }}
           >
             <img
               src="/images/logo.png"
-              alt="Logo"
-              style={{ width: "fit-content", height: "50px", marginRight: "10px" }}
+              alt="BizTrips Logo"
+              style={{ 
+                height: "40px", 
+                width: "auto",
+                filter: 'brightness(1.2)'
+              }}
             />
-          </Button>
+          </IconButton>
+        </Box>
 
-        </Typography>
-       
+        {/* Navigation Items */}
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>          {/* Main Navigation */}
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {navItems.map((item) => (
+              <Button
+                key={item.path}
+                component={NavLink}
+                to={item.path}
+                startIcon={item.icon}
+                sx={{
+                  color: 'white',
+                  mx: 1,
+                  px: 2,
+                  py: 1,
+                  borderRadius: 2,
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    transform: 'translateY(-1px)',
+                  },
+                  '&.active': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    fontWeight: 'bold',
+                  },
+                }}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </Box>
 
-          <Button
-            component={NavLink}
-            to={"/trips"}
-
-          >
-            Trips
-          </Button>
-
-       
-          <Button
-            component={NavLink}
-            to={"/newtripform"}
-          >
-            New Trip
-          </Button>
-
-
-          <Button
-            component={NavLink}
-            to={"/meetings"}
-          >
-            Meetings
-          </Button>
-      
-          <Button
-            component={NavLink}
-            to={"/employees"}
-          >
-            Employees
-          </Button>
-      
+          {/* Mobile Menu (simplified for now) */}
+          {isMobile && (
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              {navItems.map((item) => (
+                <IconButton
+                  key={item.path}
+                  component={NavLink}
+                  to={item.path}
+                  size="small"
+                  sx={{
+                    color: 'white',
+                    mx: 0.5,
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    },
+                    '&.active': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    },
+                  }}
+                >
+                  {item.icon}
+                </IconButton>
+              ))}
+            </Box>
+          )}
+        </Box>
       </Toolbar>
-    </AppBar >
+    </AppBar>
   );
 }
