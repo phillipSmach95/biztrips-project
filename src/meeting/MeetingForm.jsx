@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getProduct, getProducts, deleteProduct, patchProduct} from "../services/productService";
+import { getMeetings } from "../services/meetingService";
 import {
   Box,
   Card,
@@ -42,7 +42,7 @@ export default function MeetingForm() {
 
   const onDeleteConfirm = async () => {
     try {
-      await deleteProduct("meetings", meetingId)
+      await deleteMeeting(meetingId)
       navigate("/meetings")
     } catch (error) {
       setErrors({ delete: "Failed to delete meeting. Please try again." })
@@ -72,7 +72,7 @@ export default function MeetingForm() {
     
     setIsSubmitting(true)
     try {
-      await patchProduct("meetings", meetingId, updatedFormData)
+      await patchMeeting(meetingId, updatedFormData)
       navigate("/meetings")
     } catch (error) {
       setErrors({ submit: "Failed to update meeting. Please try again." })
@@ -81,12 +81,12 @@ export default function MeetingForm() {
     }
   }
   useEffect(() => {
-    getProduct("meetings", meetingId).then((res) => {
+    getMeetings(meetingId).then((res) => {
       setTitle(res.title || "")
       setDescription(res.description || "")
       setTripId(res.tripId || "")
     })
-    getProducts("trips").then((res) => setTrips(res))
+    getMeetings().then((res) => setTrips(res))
   }, [meetingId])
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>

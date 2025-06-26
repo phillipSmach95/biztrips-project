@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteProduct, getProducts } from "../services/productService";
+import { deleteTrip, getTrips } from "../services/tripService";
 import Spinner from "../spinner/Spinner";
 import { Card, CardContent, CardMedia, Typography, Button, Grid, Box, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -13,15 +13,15 @@ export default function Trips() {
 
   const CARD_WIDTH = 300; // Fixed width for all cards
 
-  const onDeleteIconClick = (id, category) => {
-    deleteProduct(category, id).then(() => {
+  const onDeleteIconClick = (id) => {
+    deleteTrip(id).then(() => {
       setReload(true);
     });
   };
 
   useEffect(() => {
     setLoading(true);
-    getProducts("trips").then((res) => {
+    getTrips().then((res) => {
       setTrips(res);
       setLoading(false);
       setReload(false);

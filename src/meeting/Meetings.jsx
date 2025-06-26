@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import Spinner from "../spinner/Spinner";
-import { deleteProduct, getProducts } from "../services/productService";
+import { deleteMeeting, getMeeting } from "../services/meetingService";
+import { getTrips } from "../services/tripService";
 
 export default function Meetings() {
   const [meetings, setMeetings] = useState([]);
   const [trips, setTrips] = useState([]);
   const [reload, setReload] = useState(false);
   const [loading, setLoading] = useState(false);
-  const onDeleteIconClick = (id, category)=>{
-    deleteProduct(category,id).then(()=> setReload(true))
-    
+  const onDeleteIconClick = (id)=>{
+    deleteMeeting(id).then(()=> setReload(true))
+
 }
   useEffect(() => {
     setLoading(true)
-    getProducts("trips").then((res) => {setTrips(res)})
-    getProducts("meetings").then((res) => {
+    getTrips().then((res) => {setTrips(res)})
+    getMeeting().then((res) => {
       setMeetings(res);
       setLoading(false)
       setReload(false)

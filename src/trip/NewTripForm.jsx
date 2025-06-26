@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getProducts, postProduct } from "../services/productService";
+import { postTrip } from "../services/tripService";
+import { getUsers } from "../services/userService";
 import { useNavigate } from "react-router-dom";
 import {
     Box,
@@ -78,7 +79,7 @@ export default function NewTripForm() {
         
         setIsSubmitting(true)
         try {
-            await postProduct("trips", updatedFormData)
+            await postTrip(updatedFormData)
             navigate("/trips")
         } catch (error) {
             setErrors({ submit: "Failed to save trip. Please try again." })
@@ -104,7 +105,7 @@ export default function NewTripForm() {
 
     useEffect(() => {
         setIsLoading(true)
-        getProducts("employees")
+        getUsers()
             .then((res) => setEmployees(res))
             .catch((error) => setErrors({ employees: "Failed to load employees" }))
             .finally(() => setIsLoading(false))

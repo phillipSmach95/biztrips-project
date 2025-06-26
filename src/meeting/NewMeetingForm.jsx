@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getProducts, postProduct } from "../services/productService";
+import { getTrips } from "../services/tripService";
 import {
   Box,
   Card,
@@ -57,7 +57,7 @@ export default function NewMeetingForm() {
     
     setIsSubmitting(true)
     try {
-      await postProduct("meetings", updatedFormData)
+      await postMeeting(updatedFormData)
       navigate("/meetings")
     } catch (error) {
       setErrors({ submit: "Failed to create meeting. Please try again." })
@@ -67,7 +67,7 @@ export default function NewMeetingForm() {
   }
   useEffect(() => {
     setIsLoading(true)
-    getProducts("trips")
+    getTrips()
       .then((res) => setTrips(res))
       .catch((error) => setErrors({ trips: "Failed to load trips" }))
       .finally(() => setIsLoading(false))

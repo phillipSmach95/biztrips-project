@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { deleteProduct, getProduct, getProducts, patchProduct } from "../services/productService";
+import { deleteTrip, getTrip, updateTrip } from "../services/tripService";
+import { getUsers } from "../services/userService";
 import {
     Box,
     Button,
@@ -54,7 +55,7 @@ export default function TripForm() {
 
     const onDeleteConfirm = async () => {
         try {
-            await deleteProduct("trips", tripId)
+            await deleteTrip(tripId)
             navigate("/trips")
         } catch (error) {
             setErrors({ delete: "Failed to delete trip. Please try again." })
@@ -101,7 +102,7 @@ export default function TripForm() {
 
         setIsSubmitting(true)
         try {
-            await patchProduct("trips", tripId, updatedFormData)
+            await updateTrip(tripId, updatedFormData)
             navigate("/trips")
         } catch (error) {
             setErrors({ submit: "Failed to update trip. Please try again." })
@@ -133,8 +134,8 @@ export default function TripForm() {
         setIsLoading(true)
         
         Promise.all([
-            getProducts("employees"),
-            getProduct("trips", tripId)
+            getUsers(),
+            getTrip(tripId)
         ])
         .then(([employeesRes, tripRes]) => {
             setEmployees(employeesRes)
