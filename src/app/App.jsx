@@ -181,7 +181,7 @@ export default function App() {
 
         <Header />
 
-        <Container maxWidth={false} sx={{ mt: 4, px: 3 }}>
+        <Container maxWidth={true} maxHeight={true} sx={{ py: 4, px: 3 }} >
           <Routes>
             <Route path="/" element={<Trips />} />
             <Route path="/trips" element={<Trips />} />

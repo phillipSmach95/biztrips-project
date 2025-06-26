@@ -13,7 +13,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  IconButton,
   Container,
   Stack,
   Alert,
@@ -88,25 +87,10 @@ export default function MeetingForm() {
   }, [meetingId])
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+      <Box display="flex" alignItems="center" mb={4}>
         <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
           Edit Meeting
         </Typography>
-        <IconButton
-          color="error"
-          onClick={() => setDeleteDialogOpen(true)}
-          sx={{ 
-            p: 2,
-            borderRadius: 2,
-            bgcolor: 'error.light',
-            color: 'error.contrastText',
-            '&:hover': {
-              bgcolor: 'error.main'
-            }
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
       </Box>
       
       {errors.submit && (
@@ -204,7 +188,28 @@ export default function MeetingForm() {
               <Divider />
 
               {/* Submit Button */}
-              <Box sx={{ pt: 2 }}>
+              <Box sx={{ pt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  onClick={() => setDeleteDialogOpen(true)}
+                  startIcon={<DeleteIcon />}
+                  size="large"
+                  sx={{ 
+                    py: 1.5,
+                    borderRadius: 2,
+                    fontSize: '1.1rem',
+                    fontWeight: 'bold',
+                    borderColor: 'error.main',
+                    '&:hover': {
+                      backgroundColor: 'error.main',
+                      color: 'white',
+                    }
+                  }}
+                >
+                  Delete Meeting
+                </Button>
+                
                 <Button
                   type="submit"
                   variant="contained"
@@ -217,8 +222,6 @@ export default function MeetingForm() {
                     borderRadius: 2,
                     fontSize: '1.1rem',
                     fontWeight: 'bold',
-                    display: 'block',
-                    mx: 'auto'
                   }}
                 >
                   {isSubmitting ? 'Saving Changes...' : 'Save Changes'}

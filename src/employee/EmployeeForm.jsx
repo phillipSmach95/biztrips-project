@@ -73,39 +73,21 @@ export default function EmployeeForm() {
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
-      <Paper elevation={0} sx={{ p: 4, borderRadius: 3 }}>
+      
         {/* Header */}
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Button
-              startIcon={<ArrowBackIcon />}
-              onClick={() => navigate("/employees")}
-              sx={{ mr: 2 }}
-              variant="outlined"
-            >
-              Back
-            </Button>
-            <EditIcon sx={{ fontSize: 32, mr: 2, color: 'primary.main' }} />
-            <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
-              Edit Employee
-            </Typography>
-          </Box>
-          
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
           <Button
+            startIcon={<ArrowBackIcon />}
+            onClick={() => navigate("/employees")}
+            sx={{ mr: 2 }}
             variant="outlined"
-            color="error"
-            startIcon={<DeleteIcon />}
-            onClick={() => setDeleteDialogOpen(true)}
-            sx={{ 
-              borderColor: 'error.main',
-              '&:hover': {
-                backgroundColor: 'error.main',
-                color: 'white',
-              }
-            }}
           >
-            Delete
+            Back
           </Button>
+          <EditIcon sx={{ fontSize: 32, mr: 2, color: 'primary.main' }} />
+          <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
+            Edit Employee
+          </Typography>
         </Box>
 
         <Divider sx={{ mb: 4 }} />
@@ -156,33 +138,51 @@ export default function EmployeeForm() {
                 />
 
                 {/* Submit Button */}
-                <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end', mt: 2 }}>
+                <Box sx={{ display: 'flex', gap: 2, justifyContent: 'space-between', mt: 2 }}>
                   <Button
                     variant="outlined"
-                    onClick={() => navigate("/employees")}
-                    sx={{ px: 4 }}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    startIcon={<SaveIcon />}
-                    sx={{
-                      px: 4,
-                      py: 1.5,
-                      fontWeight: 'bold',
+                    color="error"
+                    startIcon={<DeleteIcon />}
+                    onClick={() => setDeleteDialogOpen(true)}
+                    sx={{ 
+                      borderColor: 'error.main',
+                      '&:hover': {
+                        backgroundColor: 'error.main',
+                        color: 'white',
+                      }
                     }}
-                    disabled={!name || !emergencyContact}
                   >
-                    Save Changes
+                    Delete
                   </Button>
+                  
+                  <Box sx={{ display: 'flex', gap: 2 }}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => navigate("/employees")}
+                      sx={{ px: 4 }}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      startIcon={<SaveIcon />}
+                      sx={{
+                        px: 4,
+                        py: 1.5,
+                        fontWeight: 'bold',
+                      }}
+                      disabled={!name || !emergencyContact}
+                    >
+                      Save Changes
+                    </Button>
+                  </Box>
                 </Box>
               </Box>
             </form>
           </CardContent>
         </Card>
-      </Paper>
+   
 
       {/* Delete Confirmation Dialog */}      <Dialog
         open={deleteDialogOpen}
