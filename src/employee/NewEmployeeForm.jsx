@@ -8,7 +8,6 @@ import {
   TextField,
   Button,
   Box,
-  Container,
   Paper,
   Divider,
   Avatar
@@ -33,7 +32,7 @@ export default function NewEmployeeForm() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <Box sx={{ py: 4 }}>
       <Paper elevation={0} sx={{ p: 4, borderRadius: 3 }}>
         {/* Header */}
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
@@ -131,6 +130,6 @@ export default function NewEmployeeForm() {
           </CardContent>
         </Card>
       </Paper>
-    </Container>
+    </Box>
   );
 }

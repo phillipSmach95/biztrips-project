@@ -25,7 +25,7 @@ export default function Header() {
   ];
 
   return (
-    <AppBar position="static" elevation={0}>
+    <AppBar position="fixed" elevation={0}>
       <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, md: 4 } }}>        {/* Logo Section */}
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton

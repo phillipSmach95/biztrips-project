@@ -10,7 +10,6 @@ import {
     CardContent,
     CardHeader,
     Checkbox,
-    Container,
     Divider,
     FormControl,
     FormControlLabel,
@@ -25,7 +24,7 @@ import {
     CircularProgress,
     Paper
 } from "@mui/material";
-import { Save as SaveIcon } from "@mui/icons-material";
+import { Save as SaveIcon, ArrowBack as ArrowBackIcon, Add as AddIcon } from "@mui/icons-material";
 
 export default function NewTripForm() {
     const [employees, setEmployees] = useState([])
@@ -135,10 +134,21 @@ export default function NewTripForm() {
     }, [])
 
     return (
-        <Container maxWidth="md" sx={{ py: 4 }}>
-            <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ mb: 4, fontWeight: 'bold' }}>
-                Create New Trip
-            </Typography>
+        <Box sx={{ py: 4 }}>
+            <Box display="flex" alignItems="center" mb={4}>
+                <Button
+                    startIcon={<ArrowBackIcon />}
+                    onClick={() => navigate("/trips")}
+                    sx={{ mr: 2 }}
+                    variant="outlined"
+                >
+                    Back
+                </Button>
+                <AddIcon sx={{ fontSize: 32, mr: 2, color: 'primary.main' }} />
+                <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
+                    Create New Trip
+                </Typography>
+            </Box>
             
             {errors.submit && (
                 <Alert severity="error" sx={{ mb: 3 }}>
@@ -355,7 +365,21 @@ export default function NewTripForm() {
                             <Divider />
 
                             {/* Submit Button */}
-                            <Box sx={{ pt: 2 }}>
+                            <Box sx={{ pt: 2, display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
+                                <Button
+                                    variant="outlined"
+                                    onClick={() => navigate("/trips")}
+                                    size="large"
+                                    sx={{ 
+                                        minWidth: 120,
+                                        py: 1.5,
+                                        borderRadius: 2,
+                                        fontSize: '1.1rem',
+                                        fontWeight: 'bold',
+                                    }}
+                                >
+                                    Cancel
+                                </Button>
                                 <Button
                                     type="submit"
                                     variant="contained"
@@ -368,8 +392,6 @@ export default function NewTripForm() {
                                         borderRadius: 2,
                                         fontSize: '1.1rem',
                                         fontWeight: 'bold',
-                                        display: 'block',
-                                        mx: 'auto'
                                     }}
                                 >
                                     {isSubmitting ? 'Creating Trip...' : 'Create Trip'}
@@ -379,6 +401,6 @@ export default function NewTripForm() {
                     </Box>
                 </CardContent>
             </Card>
-        </Container>
+        </Box>
     )
 }

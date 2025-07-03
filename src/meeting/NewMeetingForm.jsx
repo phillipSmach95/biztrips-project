@@ -14,18 +14,19 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Container,
   Stack,
   Alert,
   CircularProgress,
   Divider,
 } from '@mui/material';
-import { Save as SaveIcon } from '@mui/icons-material';
+import { Save as SaveIcon, ArrowBack as ArrowBackIcon, Add as AddIcon } from '@mui/icons-material';
 export default function NewMeetingForm() {
-  const [description, setDescription] = useState("")
-  const [title, setTitle] = useState("")
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    tripId: ""
+  })
   const [trips, setTrips] = useState([])
-  const [tripId, setTripId] = useState("")
   const [errors, setErrors] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -33,11 +34,25 @@ export default function NewMeetingForm() {
 
   const { meetingId } = useParams();
 
+  const handleChange = (field) => (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: e.target.value
+    }))
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({
+        ...prev,
+        [field]: undefined
+      }))
+    }
+  }
+
   const validateForm = () => {
     const newErrors = {}
     
-    if (!tripId) newErrors.tripId = "Please select a trip"
-    if (!title.trim()) newErrors.title = "Title is required"
+    if (!formData.tripId) newErrors.tripId = "Please select a trip"
+    if (!formData.title.trim()) newErrors.title = "Title is required"
     
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -49,9 +64,9 @@ export default function NewMeetingForm() {
     if (!validateForm()) return
     
     const updatedFormData = {
-      title,
-      description,
-      tripId,
+      title: formData.title,
+      description: formData.description,
+      tripId: formData.tripId,
     };
     
     setIsSubmitting(true)
@@ -72,10 +87,21 @@ export default function NewMeetingForm() {
       .finally(() => setIsLoading(false))
   }, [meetingId])
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ mb: 4, fontWeight: 'bold' }}>
-        Create New Meeting
-      </Typography>
+    <Box sx={{ py: 4 }}>
+      <Box display="flex" alignItems="center" mb={4}>
+        <Button
+          startIcon={<ArrowBackIcon />}
+          onClick={() => navigate("/meetings")}
+          sx={{ mr: 2 }}
+          variant="outlined"
+        >
+          Back
+        </Button>
+        <AddIcon sx={{ fontSize: 32, mr: 2, color: 'primary.main' }} />
+        <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
+          Create New Meeting
+        </Typography>
+      </Box>
       
       {errors.submit && (
         <Alert severity="error" sx={{ mb: 3 }}>
@@ -109,9 +135,9 @@ export default function NewMeetingForm() {
                   <Select
                     labelId="trip-select-label"
                     id="tripId"
-                    value={tripId}
+                    value={formData.tripId}
                     label="Select Trip to add meeting"
-                    onChange={(e) => setTripId(e.target.value)}
+                    onChange={handleChange('tripId')}
                     disabled={isLoading}
                   >
                     {trips.map((t) => (
@@ -145,8 +171,8 @@ export default function NewMeetingForm() {
                     id="title"
                     name="title"
                     label="Meeting Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={formData.title}
+                    onChange={handleChange('title')}
                     error={!!errors.title}
                     helperText={errors.title}
                     variant="outlined"
@@ -159,8 +185,8 @@ export default function NewMeetingForm() {
                     id="description"
                     name="description"
                     label="Description (Optional)"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    value={formData.description}
+                    onChange={handleChange('description')}
                     variant="outlined"
                     multiline
                     rows={3}
@@ -173,7 +199,21 @@ export default function NewMeetingForm() {
               <Divider />
 
               {/* Submit Button */}
-              <Box sx={{ pt: 2 }}>
+              <Box sx={{ pt: 2, display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
+                <Button
+                  variant="outlined"
+                  onClick={() => navigate("/meetings")}
+                  size="large"
+                  sx={{ 
+                    minWidth: 120,
+                    py: 1.5,
+                    borderRadius: 2,
+                    fontSize: '1.1rem',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Cancel
+                </Button>
                 <Button
                   type="submit"
                   variant="contained"
@@ -186,8 +226,6 @@ export default function NewMeetingForm() {
                     borderRadius: 2,
                     fontSize: '1.1rem',
                     fontWeight: 'bold',
-                    display: 'block',
-                    mx: 'auto'
                   }}
                 >
                   {isSubmitting ? 'Creating Meeting...' : 'Create Meeting'}
@@ -197,6 +235,6 @@ export default function NewMeetingForm() {
           </Box>
         </CardContent>
       </Card>
-    </Container>
+    </Box>
   );
 }

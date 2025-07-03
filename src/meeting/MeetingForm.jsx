@@ -14,8 +14,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  IconButton,
-  Container,
   Stack,
   Alert,
   CircularProgress,
@@ -27,7 +25,7 @@ import {
   DialogActions
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Save as SaveIcon, Edit as EditIcon } from '@mui/icons-material';
+import { Save as SaveIcon, Edit as EditIcon, ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 export default function MeetingForm() {
   const [description, setDescription] = useState("")
   const [title, setTitle] = useState("")
@@ -90,26 +88,20 @@ export default function MeetingForm() {
     getTrips().then((res) => setTrips(res))
   }, [meetingId])
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+    <Box sx={{ py: 4 }}>
+      <Box display="flex" alignItems="center" mb={4}>
+        <Button
+          startIcon={<ArrowBackIcon />}
+          onClick={() => navigate("/meetings")}
+          sx={{ mr: 2 }}
+          variant="outlined"
+        >
+          Back
+        </Button>
+        <EditIcon sx={{ fontSize: 32, mr: 2, color: 'primary.main' }} />
         <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
           Edit Meeting
         </Typography>
-        <IconButton
-          color="error"
-          onClick={() => setDeleteDialogOpen(true)}
-          sx={{ 
-            p: 2,
-            borderRadius: 2,
-            bgcolor: 'error.light',
-            color: 'error.contrastText',
-            '&:hover': {
-              bgcolor: 'error.main'
-            }
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
       </Box>
       
       {errors.submit && (
@@ -207,25 +199,60 @@ export default function MeetingForm() {
               <Divider />
 
               {/* Submit Button */}
-              <Box sx={{ pt: 2 }}>
+              <Box sx={{ pt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Button
-                  type="submit"
-                  variant="contained"
+                  variant="outlined"
+                  color="error"
+                  onClick={() => setDeleteDialogOpen(true)}
+                  startIcon={<DeleteIcon />}
                   size="large"
-                  disabled={isSubmitting}
-                  startIcon={isSubmitting ? <CircularProgress size={20} /> : <SaveIcon />}
                   sx={{ 
-                    minWidth: 200,
                     py: 1.5,
                     borderRadius: 2,
                     fontSize: '1.1rem',
                     fontWeight: 'bold',
-                    display: 'block',
-                    mx: 'auto'
+                    borderColor: 'error.main',
+                    '&:hover': {
+                      backgroundColor: 'error.main',
+                      color: 'white',
+                    }
                   }}
                 >
-                  {isSubmitting ? 'Saving Changes...' : 'Save Changes'}
+                  Delete Meeting
                 </Button>
+                
+                <Box sx={{ display: 'flex', gap: 2 }}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => navigate("/meetings")}
+                    size="large"
+                    sx={{ 
+                      py: 1.5,
+                      px: 4,
+                      borderRadius: 2,
+                      fontSize: '1.1rem',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    size="large"
+                    disabled={isSubmitting}
+                    startIcon={isSubmitting ? <CircularProgress size={20} /> : <SaveIcon />}
+                    sx={{ 
+                      minWidth: 200,
+                      py: 1.5,
+                      borderRadius: 2,
+                      fontSize: '1.1rem',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {isSubmitting ? 'Saving Changes...' : 'Save Changes'}
+                  </Button>
+                </Box>
               </Box>
             </Stack>
           </Box>
@@ -272,6 +299,6 @@ export default function MeetingForm() {
           </Button>
         </DialogActions>
       </Dialog>
-    </Container>
+    </Box>
   );
 }
