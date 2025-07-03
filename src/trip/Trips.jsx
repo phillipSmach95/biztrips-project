@@ -4,6 +4,7 @@ import Spinner from "../spinner/Spinner";
 import { Card, CardContent, CardMedia, Typography, Button, Grid, Box, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import FlightIcon from "@mui/icons-material/Flight";
 import { Link } from "react-router-dom";
 
 export default function Trips() {
@@ -81,29 +82,38 @@ export default function Trips() {
   }
 
   return (
-    <>
-      <Typography variant="h3" sx={{ mb: 2, color: "#cef" }}>
-        Trips
-      </Typography>
-      <Box sx={{ mb: 2 }}>
+    <Box sx={{ p: 3 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <FlightIcon sx={{ fontSize: 40, mr: 2, color: 'primary.main' }} />
+          <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold' }}>
+            Trips
+          </Typography>
+        </Box>
         <Button
           component={Link}
           to="/newtripform"
           variant="contained"
-          color="primary"
           startIcon={<AddIcon />}
-          sx={{ mb: 2 }}
+          sx={{
+            px: 3,
+            py: 1.5,
+            fontWeight: 'bold',
+          }}
         >
           Add Trip
         </Button>
       </Box>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <Grid container spacing={2} alignItems="stretch">
-          {trips.map(renderTrip)}
-        </Grid>
+
+      {loading && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+          <Spinner />
+        </Box>
       )}
-    </>
+
+      <Grid container spacing={3}>
+        {trips.map(renderTrip)}
+      </Grid>
+    </Box>
   );
 }
