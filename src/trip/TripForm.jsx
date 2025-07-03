@@ -8,7 +8,6 @@ import {
     CardContent,
     CardHeader,
     Checkbox,
-    Container,
     Divider,
     FormControl,
     FormControlLabel,
@@ -31,20 +30,21 @@ import {
 import { 
     Delete as DeleteIcon, 
     Save as SaveIcon,
-    Edit as EditIcon
-} from "@mui/icons-material";
+    Edit as EditIcon,
+    ArrowBack as ArrowBackIcon} from "@mui/icons-material";
 
 export default function TripForm() {
     const [employees, setEmployees] = useState([])
-    const [title, setTitle] = useState("")
-    const [participants, setParticipants] = useState([])
-    const [meetings, setMeetings] = useState([])
-    const [description, setDescription] = useState("")
-    const [startTripDate, setStartTripDate] = useState("")
-    const [startTripTime, setStartTripTime] = useState("")
-    const [endTripDate, setEndTripDate] = useState("")
-    const [endTripTime, setEndTripTime] = useState("")
-    const [formData, setFormData] = useState({})
+    const [formData, setFormData] = useState({
+        title: "",
+        description: "",
+        startTripDate: "",
+        startTripTime: "",
+        endTripDate: "",
+        endTripTime: "",
+        participants: [],
+        meetings: []
+    })
     const [errors, setErrors] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -64,17 +64,17 @@ export default function TripForm() {
     const validateForm = () => {
         const newErrors = {}
         
-        if (!title.trim()) newErrors.title = "Title is required"
-        if (!description.trim()) newErrors.description = "Description is required"
-        if (!startTripDate) newErrors.startTripDate = "Start date is required"
-        if (!startTripTime) newErrors.startTripTime = "Start time is required"
-        if (!endTripDate) newErrors.endTripDate = "End date is required"
-        if (!endTripTime) newErrors.endTripTime = "End time is required"
-        if (participants.length === 0) newErrors.participants = "At least one participant is required"
+        if (!formData.title.trim()) newErrors.title = "Title is required"
+        if (!formData.description.trim()) newErrors.description = "Description is required"
+        if (!formData.startTripDate) newErrors.startTripDate = "Start date is required"
+        if (!formData.startTripTime) newErrors.startTripTime = "Start time is required"
+        if (!formData.endTripDate) newErrors.endTripDate = "End date is required"
+        if (!formData.endTripTime) newErrors.endTripTime = "End time is required"
+        if (formData.participants.length === 0) newErrors.participants = "At least one participant is required"
         
-        if (startTripDate && endTripDate && startTripTime && endTripTime) {
-            const startDateTime = new Date(`${startTripDate}T${startTripTime}`)
-            const endDateTime = new Date(`${endTripDate}T${endTripTime}`)
+        if (formData.startTripDate && formData.endTripDate && formData.startTripTime && formData.endTripTime) {
+            const startDateTime = new Date(`${formData.startTripDate}T${formData.startTripTime}`)
+            const endDateTime = new Date(`${formData.endTripDate}T${formData.endTripTime}`)
             if (startDateTime >= endDateTime) {
                 newErrors.endTrip = "End date and time must be after start date and time"
             }
@@ -90,12 +90,12 @@ export default function TripForm() {
         if (!validateForm()) return
 
         const updatedFormData = {
-            title,
-            meetings,
-            description,
-            startTrip: toIntArray(startTripDate, startTripTime),
-            endTrip: toIntArray(endTripDate, endTripTime),
-            participants
+            title: formData.title,
+            meetings: formData.meetings,
+            description: formData.description,
+            startTrip: toIntArray(formData.startTripDate, formData.startTripTime),
+            endTrip: toIntArray(formData.endTripDate, formData.endTripTime),
+            participants: formData.participants
         };
 
         setIsSubmitting(true)
@@ -120,9 +120,15 @@ export default function TripForm() {
 
     const handleParticipantChange = (employeeId, isChecked) => {
         if (isChecked) {
-            setParticipants([...participants, employeeId])
+            setFormData(prev => ({
+                ...prev,
+                participants: [...prev.participants, employeeId]
+            }))
         } else {
-            setParticipants(participants.filter((id) => id !== employeeId))
+            setFormData(prev => ({
+                ...prev,
+                participants: prev.participants.filter((id) => id !== employeeId)
+            }))
         }
     }
 
@@ -137,21 +143,15 @@ export default function TripForm() {
         ])
         .then(([employeesRes, tripRes]) => {
             setEmployees(employeesRes)
-            setDescription(tripRes.description)
-            setTitle(tripRes.title)
-            setStartTripDate(toStringDate(tripRes.startTrip))
-            setStartTripTime(toStringTime(tripRes.startTrip))
-            setEndTripDate(toStringDate(tripRes.endTrip))
-            setEndTripTime(toStringTime(tripRes.endTrip))
-            setParticipants(tripRes.participants || [])
-            setMeetings(tripRes.meetings || [])
             setFormData({
                 title: tripRes.title,
                 description: tripRes.description,
-                startTrip: tripRes.startTrip,
-                endTrip: tripRes.endTrip,
+                startTripDate: toStringDate(tripRes.startTrip),
+                startTripTime: toStringTime(tripRes.startTrip),
+                endTripDate: toStringDate(tripRes.endTrip),
+                endTripTime: toStringTime(tripRes.endTrip),
                 participants: tripRes.participants || [],
-                meetings: tripRes.meetings || [],
+                meetings: tripRes.meetings || []
             })
         })
         .catch((error) => {
@@ -162,7 +162,7 @@ export default function TripForm() {
 
     if (isLoading) {
         return (
-            <Container maxWidth="md" sx={{ py: 4 }}>
+            <Box sx={{ py: 4 }}>
                 <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
                     <Paper elevation={3} sx={{ p: 6, borderRadius: 3, textAlign: 'center' }}>
                         <CircularProgress size={60} sx={{ mb: 2 }} />
@@ -174,13 +174,22 @@ export default function TripForm() {
                         </Typography>
                     </Paper>
                 </Box>
-            </Container>
+            </Box>
         )
     }
 
     return (
-        <Container maxWidth="md" sx={{ py: 4 }}>
+        <Box sx={{ py: 4 }}>
             <Box display="flex" alignItems="center" mb={4}>
+                <Button
+                    startIcon={<ArrowBackIcon />}
+                    onClick={() => navigate("/trips")}
+                    sx={{ mr: 2 }}
+                    variant="outlined"
+                >
+                    Back
+                </Button>
+                <EditIcon sx={{ fontSize: 32, mr: 2, color: 'primary.main' }} />
                 <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
                     Edit Trip
                 </Typography>
@@ -231,8 +240,8 @@ export default function TripForm() {
                                         fullWidth
                                         label="Trip Title"
                                         variant="outlined"
-                                        value={title}
-                                        onChange={(e) => setTitle(e.target.value)}
+                                        value={formData.title}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
                                         error={!!errors.title}
                                         helperText={errors.title}
                                         required
@@ -246,8 +255,8 @@ export default function TripForm() {
                                         variant="outlined"
                                         multiline
                                         rows={4}
-                                        value={description}
-                                        onChange={(e) => setDescription(e.target.value)}
+                                        value={formData.description}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                                         error={!!errors.description}
                                         helperText={errors.description}
                                         required
@@ -275,8 +284,8 @@ export default function TripForm() {
                                                     fullWidth
                                                     label="Date"
                                                     type="date"
-                                                    value={startTripDate}
-                                                    onChange={(e) => setStartTripDate(e.target.value)}
+                                                    value={formData.startTripDate}
+                                                    onChange={(e) => setFormData(prev => ({ ...prev, startTripDate: e.target.value }))}
                                                     error={!!errors.startTripDate}
                                                     helperText={errors.startTripDate}
                                                     required
@@ -287,8 +296,8 @@ export default function TripForm() {
                                                     fullWidth
                                                     label="Time"
                                                     type="time"
-                                                    value={startTripTime}
-                                                    onChange={(e) => setStartTripTime(e.target.value)}
+                                                    value={formData.startTripTime}
+                                                    onChange={(e) => setFormData(prev => ({ ...prev, startTripTime: e.target.value }))}
                                                     error={!!errors.startTripTime}
                                                     helperText={errors.startTripTime}
                                                     required
@@ -309,8 +318,8 @@ export default function TripForm() {
                                                     fullWidth
                                                     label="Date"
                                                     type="date"
-                                                    value={endTripDate}
-                                                    onChange={(e) => setEndTripDate(e.target.value)}
+                                                    value={formData.endTripDate}
+                                                    onChange={(e) => setFormData(prev => ({ ...prev, endTripDate: e.target.value }))}
                                                     error={!!errors.endTripDate || !!errors.endTrip}
                                                     helperText={errors.endTripDate || errors.endTrip}
                                                     required
@@ -321,8 +330,8 @@ export default function TripForm() {
                                                     fullWidth
                                                     label="Time"
                                                     type="time"
-                                                    value={endTripTime}
-                                                    onChange={(e) => setEndTripTime(e.target.value)}
+                                                    value={formData.endTripTime}
+                                                    onChange={(e) => setFormData(prev => ({ ...prev, endTripTime: e.target.value }))}
                                                     error={!!errors.endTripTime || !!errors.endTrip}
                                                     helperText={errors.endTripTime}
                                                     required
@@ -358,7 +367,7 @@ export default function TripForm() {
                                                         key={employee.id}
                                                         control={
                                                             <Checkbox
-                                                                checked={participants.includes(employee.id)}
+                                                                checked={formData.participants.includes(employee.id)}
                                                                 onChange={(e) => handleParticipantChange(employee.id, e.target.checked)}
                                                                 color="primary"
                                                             />
@@ -410,22 +419,38 @@ export default function TripForm() {
                                     Delete Trip
                                 </Button>
                                 
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    size="large"
-                                    disabled={isSubmitting}
-                                    startIcon={isSubmitting ? <CircularProgress size={20} /> : <SaveIcon />}
-                                    sx={{ 
-                                        minWidth: 200,
-                                        py: 1.5,
-                                        borderRadius: 2,
-                                        fontSize: '1.1rem',
-                                        fontWeight: 'bold',
-                                    }}
-                                >
-                                    {isSubmitting ? 'Saving Changes...' : 'Save Changes'}
-                                </Button>
+                                <Box sx={{ display: 'flex', gap: 2 }}>
+                                    <Button
+                                        variant="outlined"
+                                        onClick={() => navigate("/trips")}
+                                        size="large"
+                                        sx={{ 
+                                            py: 1.5,
+                                            px: 4,
+                                            borderRadius: 2,
+                                            fontSize: '1.1rem',
+                                            fontWeight: 'bold',
+                                        }}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        size="large"
+                                        disabled={isSubmitting}
+                                        startIcon={isSubmitting ? <CircularProgress size={20} /> : <SaveIcon />}
+                                        sx={{ 
+                                            minWidth: 200,
+                                            py: 1.5,
+                                            borderRadius: 2,
+                                            fontSize: '1.1rem',
+                                            fontWeight: 'bold',
+                                        }}
+                                    >
+                                        {isSubmitting ? 'Saving Changes...' : 'Save Changes'}
+                                    </Button>
+                                </Box>
                             </Box>
                         </Stack>
                     </Box>
@@ -472,6 +497,6 @@ export default function TripForm() {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </Container>
+        </Box>
     );
 }

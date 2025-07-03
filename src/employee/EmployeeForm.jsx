@@ -8,8 +8,6 @@ import {
   TextField,
   Button,
   Box,
-  Container,
-  Paper,
   Divider,
   Avatar,
   Dialog,
@@ -72,7 +70,7 @@ export default function EmployeeForm() {
   }, [employeeId]);
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <Box sx={{ py: 4 }}>
       
         {/* Header */}
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
@@ -216,6 +214,6 @@ export default function EmployeeForm() {
           </Button>
         </DialogActions>
       </Dialog>
-    </Container>
+    </Box>
   );
 }

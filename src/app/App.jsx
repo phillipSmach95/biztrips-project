@@ -27,8 +27,8 @@ const theme = createTheme({
       dark: "#2e47a8",
       contrastText: "#ffffff",
     },    background: {
-      default: "#1a1a2e", // lighter dark blue
-      paper: "#242447", // lighter dark blue-gray
+      default: "rgb(58, 58, 110, 0.6)", // converted from #3a3a6e
+      paper: "rgba(53, 53, 112, 0.9)", // converted from #353570 with 0.8 opacity
     },
     text: {
       primary: "#ffffff",
@@ -92,7 +92,7 @@ const theme = createTheme({
           borderRadius: 8,
           textTransform: "none",
           fontWeight: 600,
-          background: " #191970",
+          background: "rgb(44, 44, 167)",
           color: "#ffffff",
           "&:hover": {
             background: " #4169e1",
@@ -139,6 +139,7 @@ const theme = createTheme({
           borderRadius: 16,
           border: "1px solid rgba(65, 105, 225, 0.1)",
           padding: "2rem",
+          minHeight: "calc(100vh - 140px)", // Account for header and increased spacing
         },
       },
     },
@@ -181,7 +182,7 @@ export default function App() {
 
         <Header />
 
-        <Container maxWidth={true} maxHeight={true} sx={{ py: 4, px: 3 }} >
+        <Container maxWidth={false} sx={{ pt: 4, pb: 4, px: 3, mx: 'auto', my: 10, maxWidth: '95vw' }} >
           <Routes>
             <Route path="/" element={<Trips />} />
             <Route path="/trips" element={<Trips />} />
