@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getMeetings, deleteMeeting, updateMeeting } from "../services/meetingService";
+import { getMeeting, deleteMeeting, updateMeeting } from "../services/meetingService";
+import { getTrips } from "../services/tripService";
 import {
   Box,
   Card,
@@ -79,12 +80,14 @@ export default function MeetingForm() {
     }
   }
   useEffect(() => {
-    getMeetings(meetingId).then((res) => {
-      setTitle(res.title || "")
-      setDescription(res.description || "")
-      setTripId(res.tripId || "")
+    console.log("Fetching meeting:", meetingId);
+    getMeeting(meetingId).then((res) => {
+      console.log("Meeting fetched:", res);
+      setTitle(res?.title || "")
+      setDescription(res?.description || "")
+      setTripId(res?.tripId || "")
     })
-    getMeetings().then((res) => setTrips(res))
+    getTrips().then((res) => setTrips(res))
   }, [meetingId])
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
@@ -154,7 +157,7 @@ export default function MeetingForm() {
                     sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
                   >
                     {trips.map((t) => (
-                      <MenuItem key={t.id} value={t.id}>{t.title}</MenuItem>
+                      <MenuItem key={t._id} value={t._id}>{t.title}</MenuItem>
                     ))}
                   </Select>
                   {errors.tripId && (

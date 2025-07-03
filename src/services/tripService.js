@@ -4,7 +4,7 @@ export async function getTrips() {
     const response = await apiService.requestApi('/trips', {
         method: 'GET'
     });
-    return response;
+    return Array.isArray(response) ? response : [];
 }
 
 export async function addTrip(tripData) {

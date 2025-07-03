@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { addTrip } from "../services/tripService";
 import { getUsers } from "../services/userService";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 import {
     Box,
     Button,
@@ -35,6 +36,7 @@ export default function NewTripForm() {
     const [startTripTime, setStartTripTime] = useState("")
     const [endTripDate, setEndTripDate] = useState("")
     const [endTripTime, setEndTripTime] = useState("")
+    const [imageUrl, setImageUrl] = useState("");
     const [formData, setFormData] = useState({})
     const [errors, setErrors] = useState({})
     const [isLoading, setIsLoading] = useState(false)
@@ -59,6 +61,17 @@ export default function NewTripForm() {
                 newErrors.endTrip = "End date and time must be after start date and time"
             }
         }
+
+        // imageUrl validation
+        if (!imageUrl.trim()) {
+            newErrors.imageUrl = "Image URL is required";
+        } else {
+            try {
+                new URL(imageUrl);
+            } catch {
+                newErrors.imageUrl = "Please enter a valid URL (e.g. https://example.com/image.jpg)";
+            }
+        }
         
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
@@ -72,8 +85,9 @@ export default function NewTripForm() {
         const updatedFormData = {
             title,
             description,
-            startTrip: toIntArray(startTripDate, startTripTime),
-            endTrip: toIntArray(endTripDate, endTripTime),
+            imageUrl,
+            startDate: arraysToDate(startTripDate, startTripTime),
+            endDate: arraysToDate(endTripDate, endTripTime),
             participants
         };
         
@@ -88,18 +102,24 @@ export default function NewTripForm() {
         }
     }
 
-    const toIntArray = (stringDate, stringTime) => {
-        const [year, month, day] = stringDate.split('-').map((e) => Number(e));
-        const [hour, minute] = stringTime.split(':').map((e) => Number(e));
-        const updatedValues = [year, month, day, hour, minute];
-        return updatedValues
+    const arraysToDate = (dateString, timeString) => {
+        const [year, month, day] = dateString.split('-').map(Number);
+        const [hour, minute] = timeString.split(':').map(Number);
+        const updatedDate = dayjs().set({
+            year,
+            month: month - 1,
+            day,
+            hour,
+            minute
+        }).toDate();
+        return updatedDate;
     }
 
     const handleParticipantChange = (employeeId, isChecked) => {
         if (isChecked) {
             setParticipants([...participants, employeeId])
         } else {
-            setParticipants(participants.filter((id) => id !== employeeId))
+            setParticipants(participants.filter((_id) => _id !== employeeId))
         }
     }
 
@@ -173,6 +193,19 @@ export default function NewTripForm() {
                                         helperText={errors.description}
                                         required
                                         placeholder="Provide a detailed description of the trip purpose and activities"
+                                        sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+                                    />
+
+                                    <TextField
+                                        fullWidth
+                                        label="Image URL"
+                                        variant="outlined"
+                                        value={imageUrl}
+                                        onChange={e => setImageUrl(e.target.value)}
+                                        error={!!errors.imageUrl}
+                                        helperText={errors.imageUrl}
+                                        required
+                                        placeholder="https://example.com/image.jpg"
                                         sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
                                     />
                                 </Stack>
@@ -288,11 +321,11 @@ export default function NewTripForm() {
                                                 <FormGroup>
                                                     {employees.map((employee) => (
                                                         <FormControlLabel
-                                                            key={employee.id}
+                                                            key={employee._id}
                                                             control={
                                                                 <Checkbox
-                                                                    checked={participants.includes(employee.id)}
-                                                                    onChange={(e) => handleParticipantChange(employee.id, e.target.checked)}
+                                                                    checked={participants.includes(employee._id)}
+                                                                    onChange={(e) => handleParticipantChange(employee._id, e.target.checked)}
                                                                     color="primary"
                                                                 />
                                                             }

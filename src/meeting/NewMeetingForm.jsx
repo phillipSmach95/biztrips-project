@@ -115,7 +115,7 @@ export default function NewMeetingForm() {
                     disabled={isLoading}
                   >
                     {trips.map((t) => (
-                      <MenuItem key={t.id} value={t.id}>{t.title}</MenuItem>
+                      <MenuItem key={t._d} value={t._id}>{t.title}</MenuItem>
                     ))}
                   </Select>
                   {errors.tripId && (

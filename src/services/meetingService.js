@@ -1,19 +1,24 @@
 import tripService from './tripService';
 
+function ensureArray(arr) {
+    return Array.isArray(arr) ? arr : [];
+}
+
 async function fetchMeetings() {
     const trips = await tripService.getTrips();
-    const meetings = trips.flatMap(trip => trip.meetings || []);
-    return meetings;
+    // Attach tripId to each meeting
+    const meetings = trips.flatMap(trip => ensureArray(trip.meetings).map(m => ({ ...m, tripId: trip._id })));
+    return ensureArray(meetings);
 }
 
 export async function getMeetings() {
     const meetings = await fetchMeetings();
-    return meetings;
+    return ensureArray(meetings);
 }
 
 export async function getMeeting(id) {
     const meetings = await fetchMeetings();
-    const meeting = meetings.find(m => m.id === id);
+    const meeting = meetings.find(m => m.meetingId === id);
     // Error Handler
     return meeting;
 }
@@ -25,7 +30,7 @@ export async function addMeeting(meeting) {
         // Error Handler
         return;
     }
-    trip.meetings = [ ...trip.meetings || [], meeting ];
+    trip.meetings = [ ...ensureArray(trip.meetings), meeting ];
     await tripService.updateTrip(tripId, trip);
     return;
 }
@@ -37,6 +42,7 @@ export async function updateMeeting(id, updatedMeeting) {
         // Error Handler
         return;
     }
+    trip.meetings = ensureArray(trip.meetings);
     const meetingIndex = trip.meetings.findIndex(m => m.id === id);
     if (meetingIndex === -1) {
         // Error Handler
@@ -48,14 +54,26 @@ export async function updateMeeting(id, updatedMeeting) {
 }
 
 export async function deleteMeeting(id) {
-    const meetings = await fetchMeetings();
-    const index = meetings.findIndex(m => m.id === id);
-    if (index === -1) {
+    // Find the trip containing the meeting
+    const trips = await tripService.getTrips();
+    let foundTrip = null;
+    let meetingIndex = -1;
+    for (const trip of trips) {
+        const meetingsArr = ensureArray(trip.meetings);
+        const idx = meetingsArr.findIndex(m => m.id === id || m.meetingId === id);
+        if (idx !== -1) {
+            foundTrip = trip;
+            meetingIndex = idx;
+            break;
+        }
+    }
+    if (!foundTrip || meetingIndex === -1) {
         // Error Handler
         return;
     }
-    meetings.splice(index, 1);
-    await tripService.updateTrip(meetings[index].tripId, { meetings });
+    // Remove the meeting from the trip's meetings array
+    const updatedMeetings = ensureArray(foundTrip.meetings).filter((m, idx) => idx !== meetingIndex);
+    await tripService.updateTrip(foundTrip._id, { ...foundTrip, meetings: updatedMeetings });
     return;
 }
 

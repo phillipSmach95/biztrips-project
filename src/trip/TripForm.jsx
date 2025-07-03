@@ -35,6 +35,7 @@ import {
     Save as SaveIcon,
     Edit as EditIcon
 } from "@mui/icons-material";
+import dayjs from "dayjs";
 
 export default function TripForm() {
     const [employees, setEmployees] = useState([])
@@ -46,6 +47,7 @@ export default function TripForm() {
     const [startTripTime, setStartTripTime] = useState("")
     const [endTripDate, setEndTripDate] = useState("")
     const [endTripTime, setEndTripTime] = useState("")
+    const [imageUrl, setImageUrl] = useState("");
     const [formData, setFormData] = useState({})
     const [errors, setErrors] = useState({})
     const [isLoading, setIsLoading] = useState(false)
@@ -81,6 +83,17 @@ export default function TripForm() {
                 newErrors.endTrip = "End date and time must be after start date and time"
             }
         }
+
+        // imageUrl validation
+        if (!imageUrl.trim()) {
+            newErrors.imageUrl = "Image URL is required";
+        } else {
+            try {
+                new URL(imageUrl);
+            } catch {
+                newErrors.imageUrl = "Please enter a valid URL (e.g. https://example.com/image.jpg)";
+            }
+        }
         
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
@@ -88,18 +101,22 @@ export default function TripForm() {
 
     const onSaveClick = async (event) => {
         event.preventDefault();
-        
-        if (!validateForm()) return
-
+        if (!validateForm()) return;
+        const start = arraysToDate(startTripDate, startTripTime);
+        const end = arraysToDate(endTripDate, endTripTime);
+        if (!start || !end) {
+            setErrors({ submit: "Invalid date or time selected." });
+            return;
+        }
         const updatedFormData = {
             title,
             meetings,
             description,
-            startTrip: toIntArray(startTripDate, startTripTime),
-            endTrip: toIntArray(endTripDate, endTripTime),
+            imageUrl,
+            startDate: start,
+            endDate: end,
             participants
         };
-
         setIsSubmitting(true)
         try {
             await updateTrip(tripId, updatedFormData)
@@ -111,14 +128,7 @@ export default function TripForm() {
         }
     };
     
-    const toStringDate = (date) => `${date[0]}-${String(date[1]).padStart(2, '0')}-${String(date[2]).padStart(2, '0')}`;
-    const toStringTime = (date) => `${String(date[3]).padStart(2, '0')}:${String(date[4]).padStart(2, '0')}`;
-    const toIntArray = (stringDate, stringTime) => {
-        const [year, month, day] = stringDate.split('-').map((e) => Number(e));
-        const [hour, minute] = stringTime.split(':').map((e) => Number(e));
-        const updatedValues = [year, month, day, hour, minute];
-        return updatedValues
-    }
+
 
     const handleParticipantChange = (employeeId, isChecked) => {
         if (isChecked) {
@@ -127,6 +137,24 @@ export default function TripForm() {
             setParticipants(participants.filter((id) => id !== employeeId))
         }
     }
+
+    const arraysToDate = (dateString, timeString) => {
+        if (!dateString || !timeString) return null;
+        const dateTimeString = `${dateString}T${timeString}`;
+        const parsed = dayjs(dateTimeString);
+        if (!parsed.isValid()) return null;
+        return parsed.toDate();
+    };
+
+    const dateToArrays = (date, setDate, setTime) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hour = String(date.getHours()).padStart(2, '0');
+        const minute = String(date.getMinutes()).padStart(2, '0');
+        setDate(`${year}-${month}-${day}`);
+        setTime(`${hour}:${minute}`);
+    };
 
     const { tripId } = useParams()
 
@@ -138,21 +166,23 @@ export default function TripForm() {
             getTrip(tripId)
         ])
         .then(([employeesRes, tripRes]) => {
-            setEmployees(employeesRes)
+            setEmployees(Array.isArray(employeesRes) ? employeesRes : [])
             setDescription(tripRes.description)
             setTitle(tripRes.title)
-            setStartTripDate(toStringDate(tripRes.startTrip))
-            setStartTripTime(toStringTime(tripRes.startTrip))
-            setEndTripDate(toStringDate(tripRes.endTrip))
-            setEndTripTime(toStringTime(tripRes.endTrip))
-            setParticipants(tripRes.participants || [])
+            setImageUrl(tripRes.imageUrl || "");
+            const startDateObj = tripRes.startDate ? new Date(tripRes.startDate) : null;
+            const endDateObj = tripRes.endDate ? new Date(tripRes.endDate) : null;
+            dateToArrays(startDateObj, setStartTripDate, setStartTripTime)
+            dateToArrays(endDateObj, setEndTripDate, setEndTripTime)
+            setParticipants(Array.isArray(tripRes.participants) ? tripRes.participants.map(p => typeof p === 'object' ? String(p._id) : String(p)) : [])
             setMeetings(tripRes.meetings || [])
             setFormData({
                 title: tripRes.title,
                 description: tripRes.description,
-                startTrip: tripRes.startTrip,
-                endTrip: tripRes.endTrip,
-                participants: tripRes.participants || [],
+                imageUrl: tripRes.imageUrl || "",
+                startTrip: tripRes.startDate,
+                endTrip: tripRes.endDate,
+                participants: Array.isArray(tripRes.participants) ? tripRes.participants.map(p => typeof p === 'object' ? String(p._id) : String(p)) : [],
                 meetings: tripRes.meetings || [],
             })
         })
@@ -271,6 +301,19 @@ export default function TripForm() {
                                         placeholder="Provide a detailed description of the trip purpose and activities"
                                         sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
                                     />
+
+                                    <TextField
+                                        fullWidth
+                                        label="Image URL"
+                                        variant="outlined"
+                                        value={imageUrl}
+                                        onChange={e => setImageUrl(e.target.value)}
+                                        error={!!errors.imageUrl}
+                                        helperText={errors.imageUrl}
+                                        required
+                                        placeholder="https://example.com/image.jpg"
+                                        sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+                                    />
                                 </Stack>
                             </Box>
 
@@ -372,15 +415,15 @@ export default function TripForm() {
                                             <FormGroup>
                                                 {employees.map((employee) => (
                                                     <FormControlLabel
-                                                        key={employee.id}
+                                                        key={employee._id}
                                                         control={
                                                             <Checkbox
-                                                                checked={participants.includes(employee.id)}
-                                                                onChange={(e) => handleParticipantChange(employee.id, e.target.checked)}
+                                                                checked={participants.includes(String(employee._id))}
+                                                                onChange={(e) => handleParticipantChange(String(employee._id), e.target.checked)}
                                                                 color="primary"
                                                             />
                                                         }
-                                                        label={`${employee.firstName} ${employee.lastName}`}
+                                                        label={`${employee.firstName || employee.firstname || ''} ${employee.lastName || employee.lastname || ''}`.trim() || employee.email || employee._id}
                                                         sx={{
                                                             py: 0.5,
                                                             '&:hover': {

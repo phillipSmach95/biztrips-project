@@ -4,7 +4,7 @@ export async function getUsers() {
     const response = await apiService.requestApi(`/users`, {
         method: 'GET'
     });
-    return response;
+    return Array.isArray(response) ? response : [];
 }
 
 export default {

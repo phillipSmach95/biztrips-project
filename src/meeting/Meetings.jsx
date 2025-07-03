@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Spinner from "../spinner/Spinner";
-import { deleteMeeting, getMeeting } from "../services/meetingService";
+import { deleteMeeting, getMeetings } from "../services/meetingService";
 import { getTrips } from "../services/tripService";
 import { 
   Card, 
@@ -30,7 +30,8 @@ export default function Meetings() {
   useEffect(() => {
     setLoading(true)
     getTrips().then((res) => {setTrips(res)})
-    getMeeting().then((res) => {
+    getMeetings().then((res) => {
+      console.log("Meetings fetched:", res);
       setMeetings(res);
       setLoading(false);
       setReload(false);
@@ -68,7 +69,7 @@ export default function Meetings() {
       <Grid container spacing={3}>
         {/* Meeting Cards */}
         {meetings.map((meeting) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={meeting.id}>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={meeting.meetingId}>
             <Card
               sx={{
                 height: 280,
@@ -86,7 +87,7 @@ export default function Meetings() {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  onDeleteIconClick(meeting.id, "meetings");
+                  onDeleteIconClick(meeting.meetingId);
                 }}
                 sx={{
                   position: 'absolute',
@@ -107,7 +108,7 @@ export default function Meetings() {
 
               <CardContent
                 component={Link}
-                to={`/meetingform/${meeting.id}`}
+                to={`/meetingform/${meeting.meetingId}`}
                 sx={{
                   flexGrow: 1,
                   display: 'flex',
@@ -120,7 +121,7 @@ export default function Meetings() {
                 <Box sx={{ mb: 2 }}>
                   <Chip
                     icon={<BusinessIcon />}
-                    label={trips[meeting.tripId]?.title || 'Unknown Trip'}
+                    label={trips.find((trip) => trip._id === meeting.tripId)?.title || 'Unknown Trip'}
                     color="primary"
                     size="small"
                     sx={{ mb: 2 }}

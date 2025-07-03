@@ -5,6 +5,7 @@ import { Card, CardContent, CardMedia, Typography, Button, Grid, Box, IconButton
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
+import dayjs from "dayjs";
 
 export default function Trips() {
   const [trips, setTrips] = useState([]);
@@ -15,7 +16,7 @@ export default function Trips() {
 
   const onDeleteIconClick = (id) => {
     deleteTrip(id).then(() => {
-      setReload(true);
+      window.location.reload();
     });
   };
 
@@ -30,7 +31,7 @@ export default function Trips() {
 
   function renderTrip(t) {
     return (
-      <Grid item xs={12} sm={6} md={4} lg={3} key={t.id} sx={{ display: "flex", justifyContent: "center" }}>
+      <Grid item xs={12} sm={6} md={4} lg={3} key={t._id} sx={{ display: "flex", justifyContent: "center" }}>
         <Card
           sx={{
             position: "relative",
@@ -50,16 +51,16 @@ export default function Trips() {
         >
           <IconButton
             aria-label="delete"
-            onClick={() => onDeleteIconClick(t.id, "trips")}
+            onClick={() => onDeleteIconClick(t._id, "trips")}
             sx={{ position: "absolute", top: 8, right: 8, zIndex: 2, bgcolor: "rgba(255,0,0,0.1)" }}
           >
             <DeleteIcon color="error" />
           </IconButton>
-          <Link to={`/tripform/${t.id}`} style={{ textDecoration: "none", color: "inherit", flex: 1, display: "flex", flexDirection: "column" }}>
+          <Link to={`/tripform/${t._id}`} style={{ textDecoration: "none", color: "inherit", flex: 1, display: "flex", flexDirection: "column" }}>
             <CardMedia
               component="img"
               height="140"
-              image={`images/items/${t.id}.jpg`}
+              image={t.imageUrl ? t.imageUrl : `images/items/${t._id}.jpg`}
               alt={t.title}
               sx={{ objectFit: "cover" }}
             />
@@ -68,7 +69,7 @@ export default function Trips() {
                 {t.title}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {t.startTrip[2]}-{t.startTrip[1]}-{t.startTrip[0]}
+                {dayjs(t.startTrip || t.startDate).format("DD-MM-YYYY")}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mt: 1, flexGrow: 1 }}>
                 {t.description}
