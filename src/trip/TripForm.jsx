@@ -40,6 +40,7 @@ export default function TripForm() {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
+        imageUrl: "",
         startTripDate: "",
         startTripTime: "",
         endTripDate: "",
@@ -83,11 +84,11 @@ export default function TripForm() {
         }
 
         // imageUrl validation
-        if (!imageUrl.trim()) {
+        if (!formData.imageUrl.trim()) {
             newErrors.imageUrl = "Image URL is required";
         } else {
             try {
-                new URL(imageUrl);
+                new URL(formData.imageUrl);
             } catch {
                 newErrors.imageUrl = "Please enter a valid URL (e.g. https://example.com/image.jpg)";
             }
@@ -100,20 +101,20 @@ export default function TripForm() {
     const onSaveClick = async (event) => {
         event.preventDefault();
         if (!validateForm()) return;
-        const start = arraysToDate(startTripDate, startTripTime);
-        const end = arraysToDate(endTripDate, endTripTime);
+        const start = arraysToDate(formData.startTripDate, formData.startTripTime);
+        const end = arraysToDate(formData.endTripDate, formData.endTripTime);
         if (!start || !end) {
             setErrors({ submit: "Invalid date or time selected." });
             return;
         }
         const updatedFormData = {
-            title,
-            meetings,
-            description,
-            imageUrl,
+            title: formData.title,
+            meetings: formData.meetings,
+            description: formData.description,
+            imageUrl: formData.imageUrl,
             startDate: start,
             endDate: end,
-            participants
+            participants: formData.participants
         };
         setIsSubmitting(true)
         try {
@@ -171,21 +172,14 @@ export default function TripForm() {
         ])
         .then(([employeesRes, tripRes]) => {
             setEmployees(Array.isArray(employeesRes) ? employeesRes : [])
-            setDescription(tripRes.description)
-            setTitle(tripRes.title)
-            setImageUrl(tripRes.imageUrl || "");
-            const startDateObj = tripRes.startDate ? new Date(tripRes.startDate) : null;
-            const endDateObj = tripRes.endDate ? new Date(tripRes.endDate) : null;
-            dateToArrays(startDateObj, setStartTripDate, setStartTripTime)
-            dateToArrays(endDateObj, setEndTripDate, setEndTripTime)
-            setParticipants(Array.isArray(tripRes.participants) ? tripRes.participants.map(p => typeof p === 'object' ? String(p._id) : String(p)) : [])
-            setMeetings(tripRes.meetings || [])
             setFormData({
-                title: tripRes.title,
-                description: tripRes.description,
+                title: tripRes.title || "",
+                description: tripRes.description || "",
                 imageUrl: tripRes.imageUrl || "",
-                startTrip: tripRes.startDate,
-                endTrip: tripRes.endDate,
+                startTripDate: tripRes.startDate ? dayjs(tripRes.startDate).format('YYYY-MM-DD') : "",
+                startTripTime: tripRes.startDate ? dayjs(tripRes.startDate).format('HH:mm') : "",
+                endTripDate: tripRes.endDate ? dayjs(tripRes.endDate).format('YYYY-MM-DD') : "",
+                endTripTime: tripRes.endDate ? dayjs(tripRes.endDate).format('HH:mm') : "",
                 participants: Array.isArray(tripRes.participants) ? tripRes.participants.map(p => typeof p === 'object' ? String(p._id) : String(p)) : [],
                 meetings: tripRes.meetings || [],
             })
@@ -304,8 +298,8 @@ export default function TripForm() {
                                         fullWidth
                                         label="Image URL"
                                         variant="outlined"
-                                        value={imageUrl}
-                                        onChange={e => setImageUrl(e.target.value)}
+                                        value={formData.imageUrl}
+                                        onChange={e => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
                                         error={!!errors.imageUrl}
                                         helperText={errors.imageUrl}
                                         required
@@ -416,7 +410,7 @@ export default function TripForm() {
                                                         key={employee._id}
                                                         control={
                                                             <Checkbox
-                                                                checked={participants.includes(String(employee._id))}
+                                                                checked={formData.participants.includes(String(employee._id))}
                                                                 onChange={(e) => handleParticipantChange(String(employee._id), e.target.checked)}
                                                                 color="primary"
                                                             />

@@ -17,7 +17,7 @@ export default function Trips() {
 
   const onDeleteIconClick = (id) => {
     deleteTrip(id).then(() => {
-      window.location.reload();
+      setReload(true); // Use reload state to trigger useEffect and reload trips
     });
   };
 
@@ -52,7 +52,7 @@ export default function Trips() {
         >
           <IconButton
             aria-label="delete"
-            onClick={() => onDeleteIconClick(t._id, "trips")}
+            onClick={() => onDeleteIconClick(t._id)}
             sx={{ position: "absolute", top: 8, right: 8, zIndex: 2, bgcolor: "rgba(255,0,0,0.1)" }}
           >
             <DeleteIcon color="error" />
